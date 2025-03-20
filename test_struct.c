@@ -1,11 +1,20 @@
 #include <stdio.h>
 #include <string.h> 
-#include "0320town.h"
+/**
+ * 게임에 대한 모든 아이템과 몬스터들을 객체화? 구조체화 했다.
+ * 
+ * usage 
+ * struct sword basic_sword;  선언 
+ *  
+ *  set_sword(basic_sword, '기본검', 10, 4, 1, 50, 0); 호출
+ * 
+ * 호출되어 리턴된 값으로 기본검이 생성됩니다. 
+ * 
+ */
 
 
+struct sword  set_sword(struct sword p, char s_name[],int damage,int enforce, int attribute, int price, int mage_rage);
 
-
-void set_sword();
 
 struct sword
 {
@@ -18,22 +27,43 @@ struct sword
     int magic_rage; //마법배율? 뭐에쓰는 녀석인고?
 
 };
-void set_sword(struct Sword *p)
+
+struct sword  set_sword(struct sword s, char s_name[],int damage,int enforce, int attribute, int price, int mage_rage)
 {
-    strcpy(p->name, "");
-    
+    strcpy(s.name, s_name);
+    s.damage = damage;
+    s.enforce= enforce;
+    s.attribute = attribute;
+    s.price = price;
+    s.magic_rage = mage_rage;
+
+    return s;
 }
+
+
 
 
 // 갑옷/신발/장갑/망토/투구 공통이다.
 struct amor
 {
     int damage_reduction; //뎀감
-    int damage_reduction_rage; //뎀감률 
+    int damage_reduction_rate; //뎀감률 
     char name[30]; //방어구의 이름
     int price;
     int additional_damge_rate; //추뎀
 };
+
+struct amor set_amor(struct amor a, char a_name[],int damage_reduction,int damage_reduction_rate, int additional_damge_rate, int price, int mage_rage)
+{
+    strcpy(a.name, a_name);
+    a.damage_reduction = damage_reduction;
+    a.damage_reduction_rate= damage_reduction_rate;
+    a.price = price;
+    a.additional_damge_rate = additional_damge_rate;
+
+    return a;
+}
+
 
 struct potion
 {
@@ -42,19 +72,43 @@ struct potion
     int healing_mp_rate; //회복율
     int price;
     int quantity;   //수량99개 제한
-    int is_anti_posion;
-    int is_blessing;
-    int all_cure;
-    int is_potal_scroll;        // 마을로감
-    int is_teleport_scroll;     // 지정된 던전으로감
+    char special[5][30];
+    // int anti_posion;    //해독제
+    // int blessing;        //축복
+    // int all_cure;        //만병통치약
+    // int potal_scroll;    // 마을로감
+    // int teleport_scroll; // 지정된 던전으로감
 
 };
+
+struct potion set_potion(struct potion p, char p_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,char special[5][30])
+{
+    strcpy(p.name, p_name);
+    p.healing_hp_rate = healing_hp_rate;
+    p.healing_mp_rate= healing_mp_rate;
+    p.price = price;
+    p.quantity = quantity;
+    strcpy(p.special, special);
+
+    return p;
+}
+
 struct refinery_material
 {
     char name[30];
     int refinery_tier;
     int is_MTS; //마력응축석 Magic Condensate Stone
+    int quantity;
 };
+
+struct refinery_material set_refinery_material(struct refinery_material r, char r_name[],int refinery_tier, int is_MTS, int quantity)
+{
+    strcpy(r.name, r_name);
+    r.refinery_tier = refinery_tier;
+    r.is_MTS= is_MTS;    
+    r.quantity = quantity;
+    return r;
+}
 struct skill
 {
     char name[30];
@@ -63,6 +117,16 @@ struct skill
     int magic_rate;
     int use_mp;
 };
+
+struct skill set_skill(struct skill s, char s_name[],int get_level ,int type,int magic_rate,int use_mp)
+{
+    strcpy(s.name, s_name);
+    s.get_level = get_level;
+    s.type= type;    
+    s.magic_rate = magic_rate;
+    s.use_mp= use_mp;
+    return s;
+}
 
 struct monster
 {
@@ -74,10 +138,52 @@ struct monster
     int type; //  불은 물에 약하고 물은 자연에 약하고 자연은 불에 약함
     char drop_items[10][50];    // 드랍아이템
     char special_effect[10][50]; //특수효과
-
-
 };  
+struct monster set_monster(struct monster m, char m_name[],int tier_info ,int hp,int atk,int def, int type, char drop_items[10][50] ,char special_effect[10][50])
+{
+    strcpy(m.name, m_name);
+    m.tier_info = tier_info;
+    m.hp= hp;    
+    m.atk = atk;
+    m.def= def;
+    m.type= type;
+    m.drop_items[10][50]= drop_items[10][50];
+    m.special_effect[10][50] = special_effect[10][50];
+    return m;
+}
 
+
+struct swordman
+{
+    int lv;
+    char name[30];
+    int exp;
+    int hp;
+    int mp;
+    int atk;
+    int matk;
+    int def;
+    int ac;
+    int cri;
+    int str;
+    int int_;
+    int dex;
+};
+
+struct swordman set_swordman(struct swordman s, char s_name[],int lv ,int hp,int atk,int matk, int def, int ac,int cri, int str, int int_, int dex)
+{
+    strcpy(s.name, s_name);
+    s.lv = lv;
+    s.hp= hp;    
+    s.atk = atk;
+    s.def= def;
+    s.ac =ac;
+    s.cri =cri;
+    s.str =str;
+    s.int_ = int_;
+    s.dex = dex;
+    return s;
+}
 
 
 struct inven
