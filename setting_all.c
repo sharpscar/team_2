@@ -68,6 +68,7 @@ struct amor
     int enforce;
     int attribute; //속성 0 1 2 3 4   갑옷에 속성을 넣은 이유는 몬스터가 속성공격 할수 도 있게 미리 미리!!
     char name[30]; //방어구의 이름
+    int tier;
     int price;
     int damage_reduction; //뎀감
     int damage_reduction_rate; //뎀감률 
@@ -80,11 +81,12 @@ struct amor
 
 
 struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
-        int damage_reduction_rate,int enforce,int price, int additional_damge_rate , 
+        int damage_reduction_rate,int tier,int enforce,int price, int additional_damge_rate , 
         int additional_ac_rate,int additional_cri_rate, int is_debuff)
     {
     strcpy(a.name, a_name);
     a.uid = make_unique_number();
+    a.tier = tier;
     a.enforce = enforce;
     a.damage_reduction = damage_reduction;
     a.damage_reduction_rate= damage_reduction_rate;    
@@ -154,7 +156,7 @@ struct skill
     char name[30];
     int get_level;
     int type; // 1 불 2 물 3자연
-    int magic_rate;
+    float magic_rate;
     int use_mp;
 };
 
@@ -171,15 +173,22 @@ struct skill set_skill(struct skill s, char s_name[],int get_level ,int type,int
 struct monster
 {
     char name[30];
-    int tier_info;
-    int hp;
-    int atk;
+    int tier_info; //1~2층 등장  기본값 2로 설정
+    int hp;         // 최대치로 설정 
+    int atk;        // 최대치로 설정
+    int weak_attribute;   //1,2,3  불/물/자연
+    int strong_attribute; //1,2,3  불/물/자연
     int def;
     int type; //  불은 물에 약하고 물은 자연에 약하고 자연은 불에 약함
-    char drop_items[10][50];    // 드랍아이템
-    char special_effect[10][50]; //특수효과
+    struct amor drop_amor;
+    struct sword drop_sword;
+    struct consume drop_consume_item;
+    struct refinery_material drop_rm_item;
+                //int drop_item_tier;   // 드랍아이템
+                //int drop_item_material;
 };  
-struct monster set_monster(struct monster m, char m_name[],int tier_info ,int hp,int atk,int def, int type, char drop_items[10][50] ,char special_effect[10][50])
+struct monster set_monster(struct monster m, char m_name[],int tier_info ,
+    int hp,int atk,int def, int type, struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm)
 {
     strcpy(m.name, m_name);
     m.tier_info = tier_info;
@@ -187,8 +196,10 @@ struct monster set_monster(struct monster m, char m_name[],int tier_info ,int hp
     m.atk = atk;
     m.def= def;
     m.type= type;
-    m.drop_items[10][50]= drop_items[10][50];
-    m.special_effect[10][50] = special_effect[10][50];
+    m.drop_amor = da;
+    m.drop_sword = ds;
+    m.drop_consume_item = dc;
+    m.drop_rm_item = drm;    
     return m;
 }
 
@@ -302,15 +313,15 @@ int main()
     struct amor amor5_advancing; //진격하는
     struct amor amor6_golem;
     struct amor amor7_cleans;
-    amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,0,50,0,0,0,0);
+    amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,0,0,50,0,0,0,0);
         
         
-    amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,0,50,0,0,0,0);
-    amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,0,50,0,0,0,0);
-    amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,0,50,0,0,0,0);
-    amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,0,50,0,0,20,0);
-    amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,0,50,20,0,0,0);
-    amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,0,50,0,0,0,0);
+    amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,0,0,50,0,0,0,0);
+    amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,0,0,50,0,0,0,0);
+    amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,0,0,50,0,0,0,0);
+    amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,0,0,50,0,0,20,0);
+    amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,0,0,50,20,0,0,0);
+    amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,0,0,50,0,0,0,0);
 // 갑옷
 
 //신발
@@ -322,13 +333,13 @@ int main()
     struct amor amor6_hermes_shoes;
     struct amor amor7_hades_shoes; 
 
-    amor1_leather_shoes= set_amor(amor1_leather_shoes,"가죽신발",-1,0,0,50,0,0,0,0);
-    amor2_iron_shoes= set_amor(amor2_iron_shoes,"철신발",-3,0,0,600,0,0,0,0);
-    amor3_strong_iron_shoes= set_amor(amor3_strong_iron_shoes,"강철신발",-6,0,0,0,0,0,0,0);
-    amor4_mithril_shoes= set_amor(amor4_mithril_shoes,"미스릴신발",-8,0,0,0,0,0,0,0);
-    amor5_poseidon_shoes= set_amor(amor5_poseidon_shoes,"포세이돈의신발",-8,0,0,0,0,0,0,1);
-    amor6_hermes_shoes= set_amor(amor6_hermes_shoes,"헤르메스의신발",-3,0,0,0,0,0,20,0);
-    amor7_hades_shoes= set_amor(amor7_hades_shoes,"하데스의신발",-3,0,0,0,10,0,0,0);
+    amor1_leather_shoes= set_amor(amor1_leather_shoes,"가죽신발",-1,0,0,0,50,0,0,0,0);
+    amor2_iron_shoes= set_amor(amor2_iron_shoes,"철신발",-3,0,0,0,600,0,0,0,0);
+    amor3_strong_iron_shoes= set_amor(amor3_strong_iron_shoes,"강철신발",-6,0,0,0,0,0,0,0,0);
+    amor4_mithril_shoes= set_amor(amor4_mithril_shoes,"미스릴신발",-8,0,0,0,0,0,0,0,0);
+    amor5_poseidon_shoes= set_amor(amor5_poseidon_shoes,"포세이돈의신발",-8,0,0,0,0,0,0,0,1);
+    amor6_hermes_shoes= set_amor(amor6_hermes_shoes,"헤르메스의신발",-3,0,0,0,0,0,0,20,0);
+    amor7_hades_shoes= set_amor(amor7_hades_shoes,"하데스의신발",-3,0,0,0,0,10,0,0,0);
 
 /*
     struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
@@ -358,19 +369,19 @@ int main()
     struct amor amor7_chaos_gloves; //
 
     amor1_leather_gloves= set_amor(
-        amor1_leather_gloves,"가죽장갑",-1,0,0,50,0,0,0,0);
+        amor1_leather_gloves,"가죽장갑",-1,0,0,0,50,0,0,0,0);
     amor2_iron_gloves= set_amor(
-        amor2_iron_gloves,"철장갑",-3,0,0,600,0,0,0,0);
+        amor2_iron_gloves,"철장갑",-3,0,0,0,600,0,0,0,0);
     amor3_strong_iron_gloves= set_amor(
-        amor3_strong_iron_gloves,"강철장갑",-6,0,0,0,0,0,0,0);
+        amor3_strong_iron_gloves,"강철장갑",-6,0,0,0,0,0,0,0,0);
     amor4_mithril_gloves= set_amor(
-        amor4_mithril_gloves,"미스릴장갑",-8,0,0,0,0,0,0,0);
+        amor4_mithril_gloves,"미스릴장갑",-8,0,0,0,0,0,0,0,0);
     amor5_hand_of_sin_gloves= set_amor(
-        amor5_hand_of_sin_gloves,"죄악의마수",-8,0,0,0,10,0,0,0);//모든공격력10퍼
+        amor5_hand_of_sin_gloves,"죄악의마수",-8,0,0,0,0,10,0,0,0);//모든공격력10퍼
     amor6_fairy_bracelet_gloves= set_amor(
-        amor6_fairy_bracelet_gloves,"요정의팔찌",-8,0,0,0,10,0,0,0);
+        amor6_fairy_bracelet_gloves,"요정의팔찌",-8,0,0,0,0,10,0,0,0);
     amor7_chaos_gloves= set_amor(
-        amor7_chaos_gloves,"혼돈의 수갑",-8,0,10,0,0,0,20,0);
+        amor7_chaos_gloves,"혼돈의 수갑",-8,0,0,10,0,0,0,20,0);
 
     //망토
     struct amor amor1_leather_cloak;
@@ -382,19 +393,19 @@ int main()
     struct amor amor7_red_cloack; //        
 
     amor1_leather_gloves= set_amor(
-        amor1_leather_gloves,"천망토",-1,0,0,50,0,0,0,0);
+        amor1_leather_gloves,"천망토",-1,0,0,0,50,0,0,0,0);
     amor2_cotton_cloack= set_amor(
-        amor2_cotton_cloack,"면망토",-3,0,0,600,0,0,0,0);
+        amor2_cotton_cloack,"면망토",-3,0,0,0,600,0,0,0,0);
     amor3_silk_cloak= set_amor(
-        amor3_silk_cloak,"비단망토",-6,0,0,0,0,0,0,0);
+        amor3_silk_cloak,"비단망토",-6,0,0,0,0,0,0,0,0);
     amor4_magic_cloack= set_amor(
-        amor4_magic_cloack,"마법망토",-8,0,0,0,0,0,0,0);
+        amor4_magic_cloack,"마법망토",-8,0,0,0,0,0,0,0,0);
     amor5_white_cloack= set_amor(
-        amor5_white_cloack,"순백의망토",-20,0,0,0,0,0,0,0);
+        amor5_white_cloack,"순백의망토",-20,0,0,0,0,0,0,0,0);
     amor6_brave_cloack= set_amor(
-        amor6_brave_cloack,"용기의망토",-8,0,0,0,10,0,0,0);
+        amor6_brave_cloack,"용기의망토",-8,0,0,0,0,10,0,0,0);
     amor7_red_cloack= set_amor(
-        amor7_red_cloack,"진홍의망토",-8,0,0,0,0,0,20,0);
+        amor7_red_cloack,"진홍의망토",-8,0,0,0,0,0,0,20,0);
 
     //투구
     struct amor amor1_leather_helmet;
@@ -406,19 +417,19 @@ int main()
     struct amor amor7_strange_hood; //        
 
     amor1_leather_gloves= set_amor(
-        amor1_leather_gloves,"가죽투구",-1,0,0,50,0,0,0,0);
+        amor1_leather_gloves,"가죽투구",-1,0,0,0,50,0,0,0,0);
     amor2_iron_helmet= set_amor(
-        amor2_iron_helmet,"철투구",-3,0,0,600,0,0,0,0);
+        amor2_iron_helmet,"철투구",-3,0,0,0,600,0,0,0,0);
     amor3_strong_iron_helmet= set_amor(
-        amor3_strong_iron_helmet,"강철투구",-6,0,0,0,0,0,0,0);
+        amor3_strong_iron_helmet,"강철투구",-6,0,0,0,0,0,0,0,0);
     amor4_mithril_helmet= set_amor(
-        amor4_mithril_helmet,"미스릴투구",-8,0,0,0,0,0,0,0);
+        amor4_mithril_helmet,"미스릴투구",-8,0,0,0,0,0,0,0,0);
     amor5_brave_helmet= set_amor(
-        amor5_brave_helmet,"용사의투구",-8,0,0,0,10,0,0,0);
+        amor5_brave_helmet,"용사의투구",-8,0,0,0,0,10,0,0,0);
     amor6_dragon_knight= set_amor(
-        amor6_dragon_knight,"용기사의투구",-8,0,0,0,10,0,0,0);
+        amor6_dragon_knight,"용기사의투구",-8,0,0,0,0,10,0,0,0);
     amor7_strange_hood= set_amor(
-        amor7_strange_hood,"기묘한두건",-1,0,0,0,0,30,0,0);
+        amor7_strange_hood,"기묘한두건",-1,0,0,0,0,0,30,0,0);
 
     // 포션
 
@@ -467,9 +478,134 @@ int main()
     potal_scroll = set_consume(potal_scroll,"마을이동주문서",0,0,200,0,0,0,0,1,0);
     teleport_scroll = set_consume(teleport_scroll,"순간이동주문서",0,0,1000,0,0,0,0,0,0);
     
+    // struct refinery_material
+    // {
+    //     char name[30];
+    //     int quantity;
+    //     int refinery_tier;
+    //     int is_MTS; //마력응축석 Magic Condensate Stone
+  
+    // struct refinery_material set_refinery_material(struct refinery_material r, char r_name[],int refinery_tier, int is_MTS, int quantity)
+    // {
+    //     strcpy(r.name, r_name);
+    //     r.refinery_tier = refinery_tier;
+    //     r.is_MTS= is_MTS;    
+    //     r.quantity = quantity;
+    //     return r;
+    // }
+
+    // };
+        // 재련 소비템 
+    struct refinery_material small_fire_piece;
+    struct refinery_material blue_fire_piece;
+    struct refinery_material strong_fire_piece;
+    struct refinery_material crazy_fire_piece;
+    struct refinery_material magic_condensation_stone;
+    
+    small_fire_piece = set_refinery_material(small_fire_piece,"작은화염조각",3,0,0);
+    blue_fire_piece = set_refinery_material(small_fire_piece,"푸른화염조각",6,0,0);
+    strong_fire_piece = set_refinery_material(small_fire_piece,"강렬한화염조각",9,0,0);
+    crazy_fire_piece = set_refinery_material(small_fire_piece,"미친화염조각",10,0,0);
+    magic_condensation_stone = set_refinery_material(small_fire_piece,"마력응축석",3,1,0);
+
+    // 스킬
+//     struct skill
+// {
+//     char name[30];
+//     int get_level;
+//     int type; // 1 불 2 물 3자연
+//     int magic_rate;
+//     int use_mp;
+// };
+
+// struct skill set_skill(struct skill s, char s_name[],int get_level ,int type,int magic_rate,int use_mp)
+// {
+//     strcpy(s.name, s_name);
+//     s.get_level = get_level;
+//     s.type= type;    
+//     s.magic_rate = magic_rate;
+//     s.use_mp= use_mp;
+//     return s;
+// }
+
+   struct skill fire_ball;
+   struct skill water_spear;
+   struct skill fire_ball;
+   struct skill thunder_bolt;
+   struct skill stone_shower;
+   struct skill water_bomb;
+   struct skill fire_spear;
+   struct skill ice_ball;
+   struct skill wind_cutter;
+   struct skill blizard;
+   struct skill blast;
+   struct skill meteor;
+   struct skill tornado;
+
+   //type 1,2,3 불 물 자연   1 명칭 2획득레벨 3타입 4마법배율 5소모
+   fire_ball = set_skill(fire_ball, "파이어볼",0,1,2,2);
+   water_spear = set_skill(water_spear, "워터스피어",5,2,2.5,10);
+   thunder_bolt = set_skill(thunder_bolt, "썬더볼트",10,3,3,15);
+   stone_shower = set_skill(stone_shower, "스톤샤워",15,3,4,20);
+   water_bomb = set_skill(water_bomb, "워터밤",20,2,5,30);
+   fire_spear = set_skill(fire_spear, "파이어스피어",25,1,6,50);
+   ice_ball = set_skill(ice_ball, "아이스볼",30,2,6,50);
+   wind_cutter = set_skill(wind_cutter, "윈드커터",40,3,8,100);
+   blast = set_skill(blast, "블래스트",50,1,10,150);
+   blizard = set_skill(blizard, "블리자드",60,2,15,200);
+   meteor = set_skill(meteor, "메테오",65,1,15,200);
+   tornado = set_skill(tornado, "토네이도",70,3,15,200);
+   
+/*
+struct monster
+{
+    char name[30];
+    int tier_info;
+    int hp;
+    int atk;
+    int def;
+    int type; //  불은 물에 약하고 물은 자연에 약하고 자연은 불에 약함
+    char drop_items[10][50];    // 드랍아이템
+    char special_effect[10][50]; //특수효과
+};  
+struct monster set_monster(struct monster m, char m_name[],int tier_info ,
+    int hp,int atk,int def, int type, struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm)
+{
+    strcpy(m.name, m_name);
+    m.tier_info = tier_info;
+    m.hp= hp;    
+    m.atk = atk;
+    m.def= def;
+    m.type= type;
+    m.drop_amor = da;
+    m.drop_sword = ds;
+    m.drop_consume_item = dc;
+    m.drop_rm_item = drm;    
+    return m;
+}
+
+    */
+
+struct monster orc_warrior;
+
+orc_warrior = set_monster(
+    orc_warrior,
+    "오크워리어",
+    2,80,20,0,2,
+    
+
+)
 
 
 
+
+
+
+
+
+
+
+  
 
 
 
