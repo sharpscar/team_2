@@ -221,11 +221,7 @@ struct monster set_monster(
     m.def= return_min_max_random(def_min,def_max);
     m.weak_attr=weak_attr;   //1,2,3  불/물/자연
     m.strong_attr=strong_attr;     
-    // m.type= type;
-    // m.drop_amor = da;
-    // m.drop_sword = ds;
-    // m.drop_consume_item = dc;
-    // m.drop_rm_item = drm;    
+    
     return m;
 }
 
@@ -263,7 +259,6 @@ struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,i
     return s;
 }
 
-
 struct inven
 {
     int money;
@@ -273,12 +268,7 @@ struct inven
     struct refinery_material rm;
 };
 
-// struct inven set_inven(struct inven i,int money, struct sword sw,struct amor am, struct potion po)
-// {
-//     i.money =   money;
-//     i.sw = sw;
-    
-// }
+
 
 //최대값 최소값 랜덤 리턴하는 함수
 int return_min_max_random(int min_, int max_)
@@ -347,7 +337,7 @@ int main()
     sword7_s= set_sword(sword7_s,"마왕을멸하는마검", 50,0,0,0,50,0);
     sword8_operaters=set_sword(sword8_operaters,"운영자검",1111,0,0,0,0,0);
 
-
+// 갑옷
     struct amor amor1_leather;
     struct amor amor2_iron;
     struct amor amor3_strong_iron;
@@ -356,15 +346,13 @@ int main()
     struct amor amor6_golem;
     struct amor amor7_cleans;
     amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,0,0,50,0,0,0,0);
-        
-        
     amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,0,0,50,0,0,0,0);
     amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,0,0,50,0,0,0,0);
     amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,0,0,50,0,0,0,0);
     amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,0,0,50,0,0,20,0);
     amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,0,0,50,20,0,0,0);
     amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,0,0,50,0,0,0,0);
-// 갑옷
+
 
 //신발
     struct amor amor1_leather_shoes;
@@ -382,24 +370,6 @@ int main()
     amor5_poseidon_shoes= set_amor(amor5_poseidon_shoes,"포세이돈의신발",-8,0,0,0,0,0,0,0,1);
     amor6_hermes_shoes= set_amor(amor6_hermes_shoes,"헤르메스의신발",-3,0,0,0,0,0,0,20,0);
     amor7_hades_shoes= set_amor(amor7_hades_shoes,"하데스의신발",-3,0,0,0,0,10,0,0,0);
-
-/*
-    struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
-        int damage_reduction_rate,int price, int additional_damge_rate , 
-        int additional_ac_rate,int additional_cri_rate)
-    {
-    strcpy(a.name, a_name);
-    a.uid = make_unique_number();
-    a.damage_reduction = damage_reduction;
-    a.damage_reduction_rate= damage_reduction_rate;    
-    a.price = price;
-    a.additional_damge_rate = additional_damge_rate;
-    a.additional_ac_rate = additional_ac_rate;    //추가 회피율
-    a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
-    디버프효과 유무 0/1
-    return a;
-}
-    */
 
     //장갑 
     struct amor amor1_leather_gloves;
@@ -475,9 +445,6 @@ int main()
 
     // 포션
 
-    
-    // }
-    
     struct consume red_potion;
     struct consume orange_potion;
     struct consume clean_potion;
@@ -504,23 +471,6 @@ int main()
     potal_scroll = set_consume(potal_scroll,"마을이동주문서",0,0,200,0,0,0,0,1,0);
     teleport_scroll = set_consume(teleport_scroll,"순간이동주문서",0,0,1000,0,0,0,0,0,0);
     
-    // struct refinery_material
-    // {
-    //     char name[30];
-    //     int quantity;
-    //     int refinery_tier;
-    //     int is_MTS; //마력응축석 Magic Condensate Stone
-  
-    // struct refinery_material set_refinery_material(struct refinery_material r, char r_name[],int refinery_tier, int is_MTS, int quantity)
-    // {
-    //     strcpy(r.name, r_name);
-    //     r.refinery_tier = refinery_tier;
-    //     r.is_MTS= is_MTS;    
-    //     r.quantity = quantity;
-    //     return r;
-    // }
-
-    // };
         // 재련 소비템 
     struct refinery_material small_fire_piece;
     struct refinery_material blue_fire_piece;
@@ -533,26 +483,6 @@ int main()
     strong_fire_piece = set_refinery_material(small_fire_piece,"강렬한화염조각",9,0,0);
     crazy_fire_piece = set_refinery_material(small_fire_piece,"미친화염조각",10,0,0);
     magic_condensation_stone = set_refinery_material(small_fire_piece,"마력응축석",3,1,0);
-
-    // 스킬
-//     struct skill
-// {
-//     char name[30];
-//     int get_level;
-//     int type; // 1 불 2 물 3자연
-//     int magic_rate;
-//     int use_mp;
-// };
-
-// struct skill set_skill(struct skill s, char s_name[],int get_level ,int type,int magic_rate,int use_mp)
-// {
-//     strcpy(s.name, s_name);
-//     s.get_level = get_level;
-//     s.type= type;    
-//     s.magic_rate = magic_rate;
-//     s.use_mp= use_mp;
-//     return s;
-// }
 
    struct skill fire_ball;
    struct skill water_spear;
@@ -605,41 +535,6 @@ int main()
 
 */ 
     demon_Lord = set_monster(demon_Lord,"마왕",5,5,500,500,250,350,0,0,3,1); 
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-    // struct inven
-    // {
-    //     int money;
-    //     struct sword sw[5];
-    //     struct amor am[15];
-    //     struct potion po[99];
-    //     //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
-    // };
-
-
-
-    // int tier;
-    // char name[30]; //칼의 이름
-    // int damage;
-    // int enforce; //강화
-    // int attribute; //속성 0 1 2 3 4
-    // int price;
-    // int cri_rate;
-    // int magic_rate; //마법배율? 뭐에쓰는 녀석인고?
 
 
 
