@@ -105,33 +105,17 @@ struct consume
     int quantity;   //수량99개 제한
     // char special[5][30];
     int anti_posion;    //해독제
-    int blessing;        //축복
-    int all_cure;        //만병통치약
-    int potal_scroll;    // 마을로감
-    int teleport_scroll; // 지정된 던전으로감
+    int is_blessing;        //축복
+    int is_all_cure;        //만병통치약
+    int is_potal_scroll;    // 마을로감
+    int is_teleport_scroll; // 지정된 던전으로감
 
 };
 
-struct consume set_amor(struct consume c, char c_name[],int healing_hp_rate,
-    int healing_mp_rate,int price, int quantity, int anti_posion,int blessing, int all_cure,int potal_scroll, int teleport_scroll)
-{
-strcpy(c.name, c_name);
-c.healing_hp_rate = healing_hp_rate;
-c.healing_mp_rate= healing_mp_rate;    
-c.price = price;
-c.quantity = quantity;
-c.anti_posion = anti_posion;    
-c.blessing = blessing;   
-c.all_cure = all_cure;
-c.potal_scroll = potal_scroll;
-c.teleport_scroll = teleport_scroll;
-
-return c;
-}
 
 struct consume set_consume(
     struct consume c, char c_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,
-    int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll)
+    int anti_posion,int is_blessing, int is_all_cure, int is_potal_scroll, int is_teleport_scroll)
 {
     strcpy(c.name, c_name);
     c.healing_hp_rate = healing_hp_rate;
@@ -139,10 +123,10 @@ struct consume set_consume(
     c.price = price;
     c.quantity = quantity;
     c.anti_posion = anti_posion;
-    c.blessing = blessing;
-    c.all_cure = all_cure;
-    c.potal_scroll = potal_scroll;
-    c.teleport_scroll =teleport_scroll;
+    c.is_blessing = is_blessing;
+    c.is_all_cure = is_all_cure;
+    c.is_potal_scroll = is_potal_scroll;
+    c.is_teleport_scroll =is_teleport_scroll;
     // strcpy(p.special[5][30], special[5][30]);
 
     return c;
@@ -248,7 +232,7 @@ struct inven
     int money;
     struct sword sw;
     struct amor am;
-    struct consum cons;
+    struct consume con;    
     struct refinery_material rm;
 };
 
@@ -437,9 +421,10 @@ int main()
         amor7_strange_hood,"기묘한두건",-1,0,0,0,0,30,0,0);
 
     // 포션
+
     // struct consume set_consume(
     //     struct consume c, char c_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,
-    //     int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll)
+    //     int anti_posion,int is_blessing, int is_all_cure, int is_potal_scroll, int is_teleport_scroll)
     // {
     //     strcpy(c.name, c_name);
     //     c.healing_hp_rate = healing_hp_rate;
@@ -447,15 +432,15 @@ int main()
     //     c.price = price;
     //     c.quantity = quantity;
     //     c.anti_posion = anti_posion;
-    //     c.blessing = blessing;
-    //     c.all_cure = all_cure;
-    //     c.potal_scroll = potal_scroll;
-    //     c.teleport_scroll =teleport_scroll;
+    //     c.is_blessing = is_blessing;
+    //     c.is_all_cure = is_all_cure;
+    //     c.is_potal_scroll = is_potal_scroll;
+    //     c.is_teleport_scroll =is_teleport_scroll;
     //     // strcpy(p.special[5][30], special[5][30]);
     
-    //     return p;
+    //     return c;
     // }
-    // }
+    
     struct consume red_potion;
     struct consume orange_potion;
     struct consume clean_potion;
@@ -469,10 +454,21 @@ int main()
     struct consume potal_scroll;
     struct consume teleport_scroll;
 
-    red_potion.set_potion(
-        red_potion,
-        "레드포션"
-    )
+    red_potion = set_consume(red_potion,"레드포션",30,0,30,0,0,0,0,0,0);
+    orange_potion = set_consume(orange_potion,"주황물약",60,0,200,0,0,0,0,0,0);
+    clean_potion = set_consume(clean_potion,"맑은물약",80,0,1000,0,0,0,0,0,0);
+    blue_potion = set_consume(blue_potion,"파란물약",0,30,50,0,0,0,0,0,0);
+    white_potion = set_consume(white_potion,"하얀물약",0,60,300,0,0,0,0,0,0);
+    rainbow_potion = set_consume(rainbow_potion,"무지개물약",0,80,1500,0,0,0,0,0,0);
+    elixer = set_consume(elixer,"엘릭서",10000,10000,30,0,0,0,0,0,0); //우선 풀충전을 10000으로 설정 추후 변경요청
+    anti_toxic = set_consume(anti_toxic,"해독제",0,0,500,0,0,0,0,0,0);
+    blessing_scroll = set_consume(blessing_scroll,"축복주문서",0,0,2000,0,1,0,0,0,0);
+    all_cure = set_consume(all_cure,"만병통치약",0,0,0,0,0,0,1,0,0);
+    potal_scroll = set_consume(potal_scroll,"마을이동주문서",0,0,200,0,0,0,0,1,0);
+    teleport_scroll = set_consume(teleport_scroll,"순간이동주문서",0,0,1000,0,0,0,0,0,0);
+    
+
+
 
 
 
@@ -504,7 +500,7 @@ int main()
         int money;
         struct sword sw;
         struct amor am;
-        struct potion po;
+        struct consume co;
         //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
     };
     struct inven mi;
