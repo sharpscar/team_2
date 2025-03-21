@@ -96,11 +96,7 @@ struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
     return a;
 }
 
-
-
-
-
-struct potion
+struct consume
 {
     char name[30]; //방어구의 이름
     int healing_hp_rate; //회복율
@@ -116,22 +112,42 @@ struct potion
 
 };
 
-struct potion set_potion(struct potion p, char p_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll)
+struct consume set_amor(struct consume c, char c_name[],int healing_hp_rate,
+    int healing_mp_rate,int price, int quantity, int anti_posion,int blessing, int all_cure,int potal_scroll, int teleport_scroll)
 {
-    strcpy(p.name, p_name);
-    p.healing_hp_rate = healing_hp_rate;
-    p.healing_mp_rate= healing_mp_rate;
-    p.price = price;
-    p.quantity = quantity;
-    p.anti_posion = anti_posion;
-    p.blessing = blessing;
-    p.all_cure = all_cure;
-    p.potal_scroll = potal_scroll;
-    p.teleport_scroll =teleport_scroll;
+strcpy(c.name, c_name);
+c.healing_hp_rate = healing_hp_rate;
+c.healing_mp_rate= healing_mp_rate;    
+c.price = price;
+c.quantity = quantity;
+c.anti_posion = anti_posion;    
+c.blessing = blessing;   
+c.all_cure = all_cure;
+c.potal_scroll = potal_scroll;
+c.teleport_scroll = teleport_scroll;
+
+return c;
+}
+
+struct consume set_consume(
+    struct consume c, char c_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,
+    int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll)
+{
+    strcpy(c.name, c_name);
+    c.healing_hp_rate = healing_hp_rate;
+    c.healing_mp_rate= healing_mp_rate;
+    c.price = price;
+    c.quantity = quantity;
+    c.anti_posion = anti_posion;
+    c.blessing = blessing;
+    c.all_cure = all_cure;
+    c.potal_scroll = potal_scroll;
+    c.teleport_scroll =teleport_scroll;
     // strcpy(p.special[5][30], special[5][30]);
 
-    return p;
+    return c;
 }
+
 
 struct refinery_material
 {
@@ -232,7 +248,7 @@ struct inven
     int money;
     struct sword sw;
     struct amor am;
-    struct potion po;
+    struct consum cons;
     struct refinery_material rm;
 };
 
@@ -295,29 +311,6 @@ int main()
     sword8_operaters=set_sword(sword8_operaters,"운영자검",1111,0,0,0,0,0);
 
 
-    /**
-     * 
-     * 
-
-struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
-        int damage_reduction_rate,int enforce,int price, int additional_damge_rate , 
-        int additional_ac_rate,int additional_cri_rate, int is_debuff)
-    {
-    strcpy(a.name, a_name);
-    a.uid = make_unique_number();
-    a.enforce = enforce;
-    a.damage_reduction = damage_reduction;
-    a.damage_reduction_rate= damage_reduction_rate;    
-    a.price = price;
-    a.additional_damge_rate = additional_damge_rate;
-    a.additional_ac_rate = additional_ac_rate;    //추가 회피율
-    a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
-    a.is_debuff = is_debuff;// 거의 모든 템은 상태이상을 제어할수 없지만 템1개는 ㅠ
-    return a;
-}
-}
-     */
-
     struct amor amor1_leather;
     struct amor amor2_iron;
     struct amor amor3_strong_iron;
@@ -329,11 +322,11 @@ struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
         
         
     amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,0,50,0,0,0,0);
-    amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,50,0,0,0,0);
-    amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,50,0,0,0,0);
-    amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,50,0,0,20,0);
-    amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,50,20,0,0,0);
-    amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,50,0,0,0,0);
+    amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,0,50,0,0,0,0);
+    amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,0,50,0,0,0,0);
+    amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,0,50,0,0,20,0);
+    amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,0,50,20,0,0,0);
+    amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,0,50,0,0,0,0);
 // 갑옷
 
 //신발
@@ -343,9 +336,17 @@ struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
     struct amor amor4_mithril_shoes;
     struct amor amor5_poseidon_shoes; //진격하는
     struct amor amor6_hermes_shoes;
-    struct amor amor7_hades_shoes;
+    struct amor amor7_hades_shoes; 
 
-    /*
+    amor1_leather_shoes= set_amor(amor1_leather_shoes,"가죽신발",-1,0,0,50,0,0,0,0);
+    amor2_iron_shoes= set_amor(amor2_iron_shoes,"철신발",-3,0,0,600,0,0,0,0);
+    amor3_strong_iron_shoes= set_amor(amor3_strong_iron_shoes,"강철신발",-6,0,0,0,0,0,0,0);
+    amor4_mithril_shoes= set_amor(amor4_mithril_shoes,"미스릴신발",-8,0,0,0,0,0,0,0);
+    amor5_poseidon_shoes= set_amor(amor5_poseidon_shoes,"포세이돈의신발",-8,0,0,0,0,0,0,1);
+    amor6_hermes_shoes= set_amor(amor6_hermes_shoes,"헤르메스의신발",-3,0,0,0,0,0,20,0);
+    amor7_hades_shoes= set_amor(amor7_hades_shoes,"하데스의신발",-3,0,0,0,10,0,0,0);
+
+/*
     struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
         int damage_reduction_rate,int price, int additional_damge_rate , 
         int additional_ac_rate,int additional_cri_rate)
@@ -358,20 +359,121 @@ struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
     a.additional_damge_rate = additional_damge_rate;
     a.additional_ac_rate = additional_ac_rate;    //추가 회피율
     a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
+    디버프효과 유무 0/1
     return a;
 }
     */
 
-    amor1_leather_shoes= set_amor(
-        amor1_leather_shoes,
-        "가죽신발",
-        -3,
-        0,
-        0,
-        50,
+    //장갑 
+    struct amor amor1_leather_gloves;
+    struct amor amor2_iron_gloves;
+    struct amor amor3_strong_iron_gloves;
+    struct amor amor4_mithril_gloves;
+    struct amor amor5_hand_of_sin_gloves; //죄악의마수
+    struct amor amor6_fairy_bracelet_gloves;// 요정의 팔찌
+    struct amor amor7_chaos_gloves; //
 
+    amor1_leather_gloves= set_amor(
+        amor1_leather_gloves,"가죽장갑",-1,0,0,50,0,0,0,0);
+    amor2_iron_gloves= set_amor(
+        amor2_iron_gloves,"철장갑",-3,0,0,600,0,0,0,0);
+    amor3_strong_iron_gloves= set_amor(
+        amor3_strong_iron_gloves,"강철장갑",-6,0,0,0,0,0,0,0);
+    amor4_mithril_gloves= set_amor(
+        amor4_mithril_gloves,"미스릴장갑",-8,0,0,0,0,0,0,0);
+    amor5_hand_of_sin_gloves= set_amor(
+        amor5_hand_of_sin_gloves,"죄악의마수",-8,0,0,0,10,0,0,0);//모든공격력10퍼
+    amor6_fairy_bracelet_gloves= set_amor(
+        amor6_fairy_bracelet_gloves,"요정의팔찌",-8,0,0,0,10,0,0,0);
+    amor7_chaos_gloves= set_amor(
+        amor7_chaos_gloves,"혼돈의 수갑",-8,0,10,0,0,0,20,0);
 
+    //망토
+    struct amor amor1_leather_cloak;
+    struct amor amor2_cotton_cloack;
+    struct amor amor3_silk_cloak;
+    struct amor amor4_magic_cloack;
+    struct amor amor5_white_cloack; //죄악의마수
+    struct amor amor6_brave_cloack;// 요정의 팔찌
+    struct amor amor7_red_cloack; //        
+
+    amor1_leather_gloves= set_amor(
+        amor1_leather_gloves,"천망토",-1,0,0,50,0,0,0,0);
+    amor2_cotton_cloack= set_amor(
+        amor2_cotton_cloack,"면망토",-3,0,0,600,0,0,0,0);
+    amor3_silk_cloak= set_amor(
+        amor3_silk_cloak,"비단망토",-6,0,0,0,0,0,0,0);
+    amor4_magic_cloack= set_amor(
+        amor4_magic_cloack,"마법망토",-8,0,0,0,0,0,0,0);
+    amor5_white_cloack= set_amor(
+        amor5_white_cloack,"순백의망토",-20,0,0,0,0,0,0,0);
+    amor6_brave_cloack= set_amor(
+        amor6_brave_cloack,"용기의망토",-8,0,0,0,10,0,0,0);
+    amor7_red_cloack= set_amor(
+        amor7_red_cloack,"진홍의망토",-8,0,0,0,0,0,20,0);
+
+    //투구
+    struct amor amor1_leather_helmet;
+    struct amor amor2_iron_helmet;
+    struct amor amor3_strong_iron_helmet;
+    struct amor amor4_mithril_helmet;
+    struct amor amor5_brave_helmet; //죄악의마수
+    struct amor amor6_dragon_knight;// 요정의 팔찌
+    struct amor amor7_strange_hood; //        
+
+    amor1_leather_gloves= set_amor(
+        amor1_leather_gloves,"가죽투구",-1,0,0,50,0,0,0,0);
+    amor2_iron_helmet= set_amor(
+        amor2_iron_helmet,"철투구",-3,0,0,600,0,0,0,0);
+    amor3_strong_iron_helmet= set_amor(
+        amor3_strong_iron_helmet,"강철투구",-6,0,0,0,0,0,0,0);
+    amor4_mithril_helmet= set_amor(
+        amor4_mithril_helmet,"미스릴투구",-8,0,0,0,0,0,0,0);
+    amor5_brave_helmet= set_amor(
+        amor5_brave_helmet,"용사의투구",-8,0,0,0,10,0,0,0);
+    amor6_dragon_knight= set_amor(
+        amor6_dragon_knight,"용기사의투구",-8,0,0,0,10,0,0,0);
+    amor7_strange_hood= set_amor(
+        amor7_strange_hood,"기묘한두건",-1,0,0,0,0,30,0,0);
+
+    // 포션
+    // struct consume set_consume(
+    //     struct consume c, char c_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,
+    //     int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll)
+    // {
+    //     strcpy(c.name, c_name);
+    //     c.healing_hp_rate = healing_hp_rate;
+    //     c.healing_mp_rate= healing_mp_rate;
+    //     c.price = price;
+    //     c.quantity = quantity;
+    //     c.anti_posion = anti_posion;
+    //     c.blessing = blessing;
+    //     c.all_cure = all_cure;
+    //     c.potal_scroll = potal_scroll;
+    //     c.teleport_scroll =teleport_scroll;
+    //     // strcpy(p.special[5][30], special[5][30]);
+    
+    //     return p;
+    // }
+    // }
+    struct consume red_potion;
+    struct consume orange_potion;
+    struct consume clean_potion;
+    struct consume blue_potion;
+    struct consume white_potion;
+    struct consume rainbow_potion;
+    struct consume elixer;
+    struct consume anti_toxic;
+    struct consume blessing_scroll;
+    struct consume all_cure;
+    struct consume potal_scroll;
+    struct consume teleport_scroll;
+
+    red_potion.set_potion(
+        red_potion,
+        "레드포션"
     )
+
 
 
 
