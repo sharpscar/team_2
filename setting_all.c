@@ -59,16 +59,7 @@ struct amor
     int additional_damge_rate; //추뎀
 };
 
-struct amor set_amor(struct amor a, char a_name[],int damage_reduction,int damage_reduction_rate, int additional_damge_rate, int price, int mage_rage)
-{
-    strcpy(a.name, a_name);
-    a.damage_reduction = damage_reduction;
-    a.damage_reduction_rate= damage_reduction_rate;
-    a.price = price;
-    a.additional_damge_rate = additional_damge_rate;
 
-    return a;
-}
 
 
 struct potion
@@ -164,7 +155,7 @@ struct monster set_monster(struct monster m, char m_name[],int tier_info ,int hp
 }
 
 
-struct swordman
+struct status
 {
     int lv;
     char name[30];
@@ -177,11 +168,12 @@ struct swordman
     int ac;
     int cri;
     int str;
-    int int_;
+    int int_; 
     int dex;
+    //좌표 ()()(마을)()()
 };
 
-struct swordman set_swordman(struct swordman s, char s_name[],int lv ,int hp,int atk,int matk, int def, int ac,int cri, int str, int int_, int dex)
+struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,int matk, int def, int ac,int cri, int str, int int_, int dex)
 {
     strcpy(s.name, s_name);
     s.lv = lv;
@@ -199,17 +191,19 @@ struct swordman set_swordman(struct swordman s, char s_name[],int lv ,int hp,int
 
 struct inven
 {
-    int wallet;    
-    char bag[20][20]; //캐릭터의 배낭이다. 
+    int money;
+    struct sword sw;
+    struct amor am;
+    struct potion po;
     //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
 };
 
-struct inven set_inven(struct inven i,int wallet, char bag[20][20], struct potion)
-{
-    i.wallet = wallet;
-    i.bag[20][20] = bag[20][20];    
+// struct inven set_inven(struct inven i,int money, struct sword sw,struct amor am, struct potion po)
+// {
+//     i.money =   money;
+//     i.sw = sw;
     
-}
+// }
 
 int main()
 {
@@ -239,7 +233,7 @@ int main()
     struct sword sword6_world_Best;
     struct sword sword7_s;
     struct sword sword8_operaters;
-    // 이름, 공격력, 강화, 속성, 가격, 마법, 치명타
+    // 이름, 공격력, 강화, 속성, 가격, 마법, 치명타 칼을 초기화
     sword1_basic =set_sword(sword1_basic,"기본검", 2,0,0,50,0,0);
     sword2_longsword= set_sword(sword2_longsword,"장검", 10,0,0,500,0,0);
     sword3_japanese= set_sword(sword3_japanese,"일본도", 20,0,0,1000,0,0);
@@ -249,7 +243,56 @@ int main()
     sword7_s= set_sword(sword7_s,"마왕을 멸하는 마검", 50,0,0,0,50,0);
     sword8_operaters=set_sword(sword8_operaters,"운영자검",1111,0,0,0,0,0);
 
+    // struct amor set_amor(struct amor a, char a_name[],int damage_reduction,int damage_reduction_rate, int additional_damge_rate, int price, int mage_rage)
+    // {
+    //     strcpy(a.name, a_name);
+    //     a.damage_reduction = damage_reduction;
+    //     a.damage_reduction_rate= damage_reduction_rate;
+    //     a.price = price;
+    //     a.additional_damge_rate = additional_damge_rate;
+    
+    //     return a;
+    // }
+    struct amor amor1_leather;
+    struct amor amor2_leather;
+    struct amor amor3_leather;
+    struct amor amor4_leather;
+    struct amor amor5_leather;
+    struct amor amor6_leather;
+    struct amor amor7_leather;
 
+
+    // struct inven
+    // {
+    //     int money;
+    //     struct sword sw[5];
+    //     struct amor am[15];
+    //     struct potion po[99];
+    //     //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
+    // };
+
+
+
+    // int tier;
+    // char name[30]; //칼의 이름
+    // int damage;
+    // int enforce; //강화
+    // int attribute; //속성 0 1 2 3 4
+    // int price;
+    // int cri_rate;
+    // int magic_rate; //마법배율? 뭐에쓰는 녀석인고?
+
+    struct inven my_inven;
+
+    struct pkt_inven{
+        int money;
+        struct sword a;
+        struct amor b;
+        struct potion c;
+    };
+    
+    struct pkt_inven t;
+    t.a = sword1_basic;
 
     return 0;
     

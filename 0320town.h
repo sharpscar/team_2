@@ -37,21 +37,21 @@ int* variety_store_main(struct inven *p){
         }   
     };
      */
-    struct inven
-    {
-        int wallet;
-        int stat[11];
-        char bag[20][20]; //캐릭터의 배낭이다.
-        char consume[100][30] // 열에는 '' 이런식으로 숫자를 표기한다 더좋은방식 있으면 알려주시면 적극 수용
+    // struct inven
+    // {
+    //     int wallet;
+    //     int stat[11];
+    //     char bag[20][20]; //캐릭터의 배낭이다.
+    //     char consume[100][30] // 열에는 '' 이런식으로 숫자를 표기한다 더좋은방식 있으면 알려주시면 적극 수용
 
-    };
+    // };
 
-    printf("이녀석의 소지금은 %d", p->wallet);
-    printf("이녀석의 hp는 %d", p->stat[2]); 
-    for (int i=0; i<4;i++)
-    {
-        printf("이녀석의 가방에는 %s", p->bag[i]); 
-    }
+    // printf("이녀석의 소지금은 %d", p->wallet);
+    // printf("이녀석의 hp는 %d", p->stat[2]); 
+    // for (int i=0; i<4;i++)
+    // {
+    //     printf("이녀석의 가방에는 %s", p->bag[i]); 
+    // }
     
     
     
