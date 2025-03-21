@@ -172,14 +172,23 @@ struct skill set_skill(struct skill s, char s_name[],int get_level ,int type,int
 
 struct monster
 {
-    char name[30];
-    int tier_info; //1~2층 등장  기본값 2로 설정
-    int hp;         // 최대치로 설정 
-    int atk;        // 최대치로 설정
-    int weak_attribute;   //1,2,3  불/물/자연
-    int strong_attribute; //1,2,3  불/물/자연
+    char name[30];    
+    int tier_lv_max;
+    int tier_lv_min;
+    int tier;
+    int hp_min;    
+    int hp_max;    
+    int hp;
+    int atk_min;
+    int atk_max;    
+    int atk;
+    int def_min;
+    int def_max;    
     int def;
-    int type; //  불은 물에 약하고 물은 자연에 약하고 자연은 불에 약함
+    int weak_attr;   //1,2,3  불/물/자연
+    int strong_attr; //1,2,3  불/물/자연
+    
+    // int type; //  불은 물에 약하고 물은 자연에 약하고 자연은 불에 약함
     struct amor drop_amor;
     struct sword drop_sword;
     struct consume drop_consume_item;
@@ -187,19 +196,36 @@ struct monster
                 //int drop_item_tier;   // 드랍아이템
                 //int drop_item_material;
 };  
-struct monster set_monster(struct monster m, char m_name[],int tier_info ,
-    int hp,int atk,int def, int type, struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm)
+struct monster set_monster(
+    struct monster m, char m_name[],
+    int tier_lv_min, int tier_lv_max, 
+    int hp_min, int hp_max,  
+    int atk_min, int atk_max, 
+    int def_min, int def_max,
+    int weak_attr, int strong_attr
+    // struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm
+)
 {
     strcpy(m.name, m_name);
-    m.tier_info = tier_info;
-    m.hp= hp;    
-    m.atk = atk;
-    m.def= def;
-    m.type= type;
-    m.drop_amor = da;
-    m.drop_sword = ds;
-    m.drop_consume_item = dc;
-    m.drop_rm_item = drm;    
+    m.tier_lv_max = tier_lv_max;
+    m.tier_lv_min = tier_lv_min;
+    m.tier = return_min_max_random(tier_lv_min,tier_lv_max);
+    m.hp_min= hp_min;    
+    m.hp_max= hp_max;    
+    m.hp = return_min_max_random(hp_min,hp_max);
+    m.atk_min = atk_min;
+    m.atk_max = atk_max;
+    m.atk = return_min_max_random(atk_min,atk_max);
+    m.def_min = def_min;
+    m.def_max = def_max;
+    m.def= return_min_max_random(def_min,def_max);
+    m.weak_attr=weak_attr;   //1,2,3  불/물/자연
+    m.strong_attr=strong_attr;     
+    // m.type= type;
+    // m.drop_amor = da;
+    // m.drop_sword = ds;
+    // m.drop_consume_item = dc;
+    // m.drop_rm_item = drm;    
     return m;
 }
 
@@ -254,6 +280,22 @@ struct inven
     
 // }
 
+//최대값 최소값 랜덤 리턴하는 함수
+int return_min_max_random(int min_, int max_)
+{
+
+    srand((unsigned)time(NULL));
+    int r_number;
+    int flag;
+
+    r_number = (rand()% (max_-min_+1)+min_); 
+
+    printf("%d", r_number);
+
+    return r_number;
+}
+
+// unique number 생성기
 int make_unique_number()
 {    
     // int rotto[SIZE];
@@ -556,45 +598,31 @@ int main()
    meteor = set_skill(meteor, "메테오",65,1,15,200);
    tornado = set_skill(tornado, "토네이도",70,3,15,200);
    
-/*
-struct monster
-{
-    char name[30];
-    int tier_info;
-    int hp;
-    int atk;
-    int def;
-    int type; //  불은 물에 약하고 물은 자연에 약하고 자연은 불에 약함
-    char drop_items[10][50];    // 드랍아이템
-    char special_effect[10][50]; //특수효과
-};  
-struct monster set_monster(struct monster m, char m_name[],int tier_info ,
-    int hp,int atk,int def, int type, struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm)
-{
-    strcpy(m.name, m_name);
-    m.tier_info = tier_info;
-    m.hp= hp;    
-    m.atk = atk;
-    m.def= def;
-    m.type= type;
-    m.drop_amor = da;
-    m.drop_sword = ds;
-    m.drop_consume_item = dc;
-    m.drop_rm_item = drm;    
-    return m;
-}
+    struct monster orc_warrior;
+    struct monster zombie;
+    struct monster ghoul;
+    struct monster skeleton;
+    struct monster rich;
+    struct monster basilisk;
+    struct monster demon_Lord;
 
-    */
+    // 0 1 2 3  무 <불< 물< 자연
+    // 몹객체, 몬이름, 층 최소, 층최대, hp최소, hp최대 , 최소공격, 최대공격, 
+    //방어최소, 방어최대,  약속성, 강속성, 
+    orc_warrior = set_monster(orc_warrior,"오크워리어",1,2,30,80,10,20,0,0,1,2); // 강속성까지 완
+    zombie = set_monster(zombie,"좀비",2,3,80,120,25,40,1,3,2,3); 
+    ghoul = set_monster(ghoul,"구울",3,4,120,200,50,80,5,10,1,2); 
+    skeleton = set_monster(skeleton,"해골",4,5,250,400,70,110,15,30,3,1); 
+    rich = set_monster(rich,"리치",5,5,300,350,230,300,10,15,3,1); 
+    basilisk = set_monster(basilisk,"바실리스크",5,5,600,900,100,130,30,50,1,2); 
 
-struct monster orc_warrior;
+    /*
+    마왕 방어력이 0? 그리고 용복이의 체력 *300% 추가체력이있고 중독 저주가 20% 확율
 
-orc_warrior = set_monster(
-    orc_warrior,
-    "오크워리어",
-    2,80,20,0,2,
-    
+    */ 
+    demon_Lord = set_monster(demon_Lord,"마왕",5,5,500,500,250,350,0,0,3,1); 
 
-)
+
 
 
 
