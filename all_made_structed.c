@@ -1,9 +1,11 @@
+
 #include <stdio.h>
 #include <string.h> 
 #include <stdlib.h>
 #include <time.h>
 
-#define UNIQUE_SIZE 1000
+
+
 
 
 /**
@@ -30,7 +32,7 @@ struct sword set_sword(struct sword s,
     int magic_rate);
 struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
         int damage_reduction_rate,int tier,int enforce,int price, int additional_damge_rate , 
-        int additional_ac_rate,int additional_cri_rate, int is_debuff);
+        int ,int additional_cri_rate, int is_debuff);
 struct potion set_potion(struct potion p, char p_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll);
 struct refinery_material set_refinery_material(struct refinery_material r, char r_name[],int refinery_tier, int is_MTS, int quantity);
 struct monster set_monster(
@@ -75,7 +77,8 @@ struct sword set_sword(struct sword s,
     s.attribute = attribute;
     s.price = price;
     s.cri_rate = cri_rate;
-    s.magic_rate = magic_rate;    
+    s.magic_rate = magic_rate;   
+     
     return s;
 }
 
@@ -307,9 +310,12 @@ int return_min_max_random(int min_, int max_)
 // unique number 생성기
 int make_num()
 {    
-    // int rotto[SIZE];
+    
     int time_num = (unsigned int)time(NULL);
     
+    
+    
+   
     return time_num;
 }
 
@@ -333,14 +339,14 @@ int setting()
     struct sword sword7_s;
     struct sword sword8_operaters;
     // 이름, 공격력, 강화, 속성, 가격, 마법, 치명타 칼을 초기화
-    // sword1_basic =set_sword(num,sword1_basic,"기본검", 2,0,0,50,0,0);
-    // sword2_longsword= set_sword(num,sword2_longsword,"장검", 10,0,0,500,0,0);
-    // sword3_japanese= set_sword(num,sword3_japanese,"일본도", 20,0,0,1000,0,0);
-    // sword4_ssaulabi= set_sword(num,sword4_ssaulabi,"싸울아비장검", 40,0,0,0,0,0);
-    // sword5_sword_Of_Chaos= set_sword(num,sword5_sword_Of_Chaos,"혼돈의검", 50,0,0,0,0,30);
-    // sword6_world_Best= set_sword(num,sword6_world_Best,"천상천하제일무쌍도", 100,0,0,0,0,0);    
-    // sword7_s= set_sword(num,sword7_s,"마왕을멸하는마검", 50,0,0,0,50,0);
-    // sword8_operaters=set_sword(num,sword8_operaters,"운영자검",1111,0,0,0,0,0);
+    sword1_basic =set_sword(sword1_basic,"기본검", 2,0,0,50,0,0);
+    sword2_longsword= set_sword(sword2_longsword,"장검", 10,0,0,500,0,0);
+    sword3_japanese= set_sword(sword3_japanese,"일본도", 20,0,0,1000,0,0);
+    sword4_ssaulabi= set_sword(sword4_ssaulabi,"싸울아비장검", 40,0,0,0,0,0);
+    sword5_sword_Of_Chaos= set_sword(sword5_sword_Of_Chaos,"혼돈의검", 50,0,0,0,0,30);
+    sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도", 100,0,0,0,0,0);    
+    sword7_s= set_sword(sword7_s,"마왕을멸하는마검", 50,0,0,0,50,0);
+    sword8_operaters=set_sword(sword8_operaters,"운영자검",1111,0,0,0,0,0);
 
 // 갑옷
     struct amor amor1_leather;

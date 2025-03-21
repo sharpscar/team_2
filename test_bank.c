@@ -115,10 +115,12 @@
 
 struct inven sword_store_to_bank(struct inven, struct inven);
 int get_index_for_inven_sword_array(struct inven inven_);
+struct inven test_set_item();
 int main()
 {   
     srand(time(NULL));
-    setting();
+    // setting();
+    
 
     // 일단 인벤에 칼 2자루와 갑옷 1개를 임의로 넣어보자
     struct inven bank_inven;
@@ -141,8 +143,11 @@ int main()
     bank_inven =  sword_store_to_bank(bank_inven,my_inven);
     
     
+    
 return 0;
 }
+
+
 struct inven bank_main(struct inven user_inven)
 {
     int answer;
@@ -178,8 +183,7 @@ return user_inven;
 }
 
 
-struct inven store_sword_to_banks_inven
-(struct inven user_inven, struct inven bank_inven)
+struct inven store_sword_to_banks_inven(struct inven user_inven, struct inven bank_inven)
 {
     //유저 인벤을 매개변수로 받아서 선택한 칼의 인덱스를
     //이용해서 해당 칼 정보를 가져온다
@@ -210,7 +214,7 @@ return bank_inven;
         int sw_cnt  = sizeof(user_inven.sw) /sizeof(struct sword);
         int index=0;
         int bank_last_index=0;
-        int answer=0;
+        int select;
 
         // get_index_for_inven_sword_array :끝 인덱스를 가져오는 함수 없으면 0 꽉차면 5겠지?
         inven_space_index_sword = get_index_for_inven_sword_array(user_inven);
@@ -226,12 +230,13 @@ return bank_inven;
 
         }
         
-        scanf("몇번을 꺼내시겠습니까? %d ", &answer);
+        scanf("몇번을 꺼내시겠습니까? %s ", &select);
+        select = (int)select;
         // answer = 2;
-        printf("=====================> %d\n" , answer);
+        printf("=====================> %d\n" , select);
         // struct sword selected_sword = user_inven.sw[answer]; //정보를 넣는다.
 
-        printf("%s", user_inven.sw[answer].name);
+        printf("%s", user_inven.sw[select].name);
         //은행 인벤에 sw 리스트의 인덱스를 가져온다. 
         bank_last_index = get_index_for_inven_sword_array(bank_inven);
 
