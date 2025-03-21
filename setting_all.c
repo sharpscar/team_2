@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h> 
+#include <stdlib.h>
+#include <time.h>
+#define UNIQUE_SIZE 1000
 /**
  * 게임에 대한 모든 아이템과 몬스터들을 객체화? 구조체화 했다.
  * 
@@ -11,7 +14,7 @@
  * 호출되어 리턴된 값으로 기본검이 생성됩니다. 
  * 
  */
-
+int make_unique_number();
 
 struct sword  set_sword(struct sword p, char s_name[],int damage,int enforce, int attribute, int price, int mage_rate, int cri_rate);
 struct amor set_amor(struct amor a, char a_name[],int damage_reduction,int damage_reduction_rate, int additional_damge_rate, int price, int mage_rage);
@@ -24,6 +27,7 @@ struct inven set_inven(struct inven i,int wallet, char bag[20][20], struct potio
 struct sword
 {
     int tier;
+    int uid;
     char name[30]; //칼의 이름
     int damage;
     int enforce; //강화
@@ -37,8 +41,10 @@ struct sword
 struct sword  set_sword(struct sword s, char s_name[],int damage,int enforce, int attribute, int price,int cri_rate, int mage_rate)
 {
     strcpy(s.name, s_name);
+    s.uid = make_unique_number();
     s.damage = damage;
     s.enforce= enforce;
+    
     s.attribute = attribute;
     s.price = price;
     s.magic_rate = mage_rate;
@@ -52,12 +58,37 @@ struct sword  set_sword(struct sword s, char s_name[],int damage,int enforce, in
 // 갑옷/신발/장갑/망토/투구 공통이다.
 struct amor
 {
-    int damage_reduction; //뎀감
-    int damage_reduction_rate; //뎀감률 
+    int uid;
+    int enforce;
+    int attribute; //속성 0 1 2 3 4   갑옷에 속성을 넣은 이유는 몬스터가 속성공격 할수 도 있게 미리 미리!!
     char name[30]; //방어구의 이름
     int price;
+    int damage_reduction; //뎀감
+    int damage_reduction_rate; //뎀감률 
     int additional_damge_rate; //추뎀
+    int additional_ac_rate;    //추가 회피율
+    int additional_cri_rate;   //추가 치명타율
+    int is_debuff; // 거의 모든 템은 상태이상을 제어할수 없지만 템1개는 ㅠ
+
 };
+
+
+struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
+        int damage_reduction_rate,int price, int additional_damge_rate , 
+        int additional_ac_rate,int additional_cri_rate, int is_debuff)
+    {
+    strcpy(a.name, a_name);
+    a.uid = make_unique_number();
+    a.damage_reduction = damage_reduction;
+    a.damage_reduction_rate= damage_reduction_rate;    
+    a.price = price;
+    a.additional_damge_rate = additional_damge_rate;
+    a.additional_ac_rate = additional_ac_rate;    //추가 회피율
+    a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
+    a.is_debuff = is_debuff;// 거의 모든 템은 상태이상을 제어할수 없지만 템1개는 ㅠ
+    return a;
+}
+
 
 
 
@@ -195,7 +226,7 @@ struct inven
     struct sword sw;
     struct amor am;
     struct potion po;
-    //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
+    struct refinery_material rm;
 };
 
 // struct inven set_inven(struct inven i,int money, struct sword sw,struct amor am, struct potion po)
@@ -205,6 +236,30 @@ struct inven
     
 // }
 
+int make_unique_number()
+{    
+    // int rotto[SIZE];
+    int r_number;
+    int flag;
+    int unique_number_list[UNIQUE_SIZE];
+  
+    srand((unsigned)time(NULL));
+
+    r_number = (rand()% UNIQUE_SIZE) +1; 
+
+    // is_in 을 호출해야함 
+    for (int i=0; i<=sizeof(unique_number_list)/sizeof(int) ;i++)
+    {
+        if (r_number!= unique_number_list[i])
+        {    
+            unique_number_list[i] = r_number;            
+        }
+        
+    }
+    return r_number;
+}
+
+
 int main()
 {
     /* 
@@ -212,18 +267,7 @@ int main()
     주영님의 설명 https://cafe.naver.com/f-e/cafes/28969626/articles/54579?boardtype=L&menuid=777&referrerAllArticles=false
     책 712
     */
-    
-    // struct sword  set_sword(struct sword s, char s_name[],int damage,int enforce, int attribute, int price,int cri_rate, int mage_rate)
-    // {
-    //     strcpy(s.name, s_name);
-    //     s.damage = damage;
-    //     s.enforce= enforce;
-    //     s.attribute = attribute;
-    //     s.price = price;
-    //     s.magic_rate = mage_rate;
-    //     s.cri_rate = cri_rate;
-    //     return s;
-    // }
+
 
     struct sword sword1_basic;
     struct sword sword2_longsword;
@@ -243,23 +287,44 @@ int main()
     sword7_s= set_sword(sword7_s,"마왕을 멸하는 마검", 50,0,0,0,50,0);
     sword8_operaters=set_sword(sword8_operaters,"운영자검",1111,0,0,0,0,0);
 
-    // struct amor set_amor(struct amor a, char a_name[],int damage_reduction,int damage_reduction_rate, int additional_damge_rate, int price, int mage_rage)
-    // {
-    //     strcpy(a.name, a_name);
-    //     a.damage_reduction = damage_reduction;
-    //     a.damage_reduction_rate= damage_reduction_rate;
-    //     a.price = price;
-    //     a.additional_damge_rate = additional_damge_rate;
-    
-    //     return a;
-    // }
+
+    /**
+     * 
+     * 
+struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
+        int damage_reduction_rate,int price, int additional_damge_rate , 
+        int additional_ac_rate,int additional_cri_rate)
+    {
+    strcpy(a.name, a_name);
+    a.uid = make_unique_number();
+    a.damage_reduction = damage_reduction;
+    a.damage_reduction_rate= damage_reduction_rate;    
+    a.price = price;
+    a.additional_damge_rate = additional_damge_rate;
+    a.additional_ac_rate = additional_ac_rate;    //추가 회피율
+    a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
+    return a;
+}
+     * 
+     */
+
     struct amor amor1_leather;
-    struct amor amor2_leather;
-    struct amor amor3_leather;
-    struct amor amor4_leather;
-    struct amor amor5_leather;
-    struct amor amor6_leather;
-    struct amor amor7_leather;
+    struct amor amor2_iron;
+    struct amor amor3_strong_iron;
+    struct amor amor4_mithril;
+    struct amor amor5_advancing; //진격하는
+    struct amor amor6_golem;
+    struct amor amor7_cleans;
+    amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,50,0,0,0,0);
+    amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,50,0,0,0,0);
+    amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,50,0,0,0,0);
+    amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,50,0,0,0,0);
+    amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,50,0,0,20,0);
+    amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,50,20,0,0,0);
+    amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,50,0,0,0,0);
+
+
+
 
 
     // struct inven
@@ -282,17 +347,22 @@ int main()
     // int cri_rate;
     // int magic_rate; //마법배율? 뭐에쓰는 녀석인고?
 
-    struct inven my_inven;
 
-    struct pkt_inven{
+
+    struct inven
+    {
         int money;
-        struct sword a;
-        struct amor b;
-        struct potion c;
+        struct sword sw;
+        struct amor am;
+        struct potion po;
+        //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
     };
+    struct inven mi;
     
-    struct pkt_inven t;
-    t.a = sword1_basic;
+
+
+    
+    mi.sw = sword1_basic;
 
     return 0;
     
@@ -301,6 +371,7 @@ int main()
 
 
 
+//해야하는것! 칼 , 방어구 id 속성 추가  그리고 세터함수에 unique_id를 넣는다.
     
 
 
