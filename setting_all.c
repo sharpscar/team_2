@@ -38,17 +38,23 @@ struct sword
 
 };
 
-struct sword  set_sword(struct sword s, char s_name[],int damage,int enforce, int attribute, int price,int cri_rate, int mage_rate)
+struct sword  set_sword(struct sword s, 
+    char s_name[],
+    int damage,
+    int enforce,
+    int attribute, 
+    int price,
+    int cri_rate, 
+    int magic_rate)
 {
     strcpy(s.name, s_name);
     s.uid = make_unique_number();
     s.damage = damage;
     s.enforce= enforce;
-    
     s.attribute = attribute;
     s.price = price;
-    s.magic_rate = mage_rate;
     s.cri_rate = cri_rate;
+    s.magic_rate = magic_rate;    
     return s;
 }
 
@@ -65,7 +71,7 @@ struct amor
     int price;
     int damage_reduction; //뎀감
     int damage_reduction_rate; //뎀감률 
-    int additional_damge_rate; //추뎀
+    int additional_damge_rate; //추가 데미지 비율
     int additional_ac_rate;    //추가 회피율
     int additional_cri_rate;   //추가 치명타율
     int is_debuff; // 거의 모든 템은 상태이상을 제어할수 없지만 템1개는 ㅠ
@@ -74,11 +80,12 @@ struct amor
 
 
 struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
-        int damage_reduction_rate,int price, int additional_damge_rate , 
+        int damage_reduction_rate,int enforce,int price, int additional_damge_rate , 
         int additional_ac_rate,int additional_cri_rate, int is_debuff)
     {
     strcpy(a.name, a_name);
     a.uid = make_unique_number();
+    a.enforce = enforce;
     a.damage_reduction = damage_reduction;
     a.damage_reduction_rate= damage_reduction_rate;    
     a.price = price;
@@ -291,7 +298,55 @@ int main()
     /**
      * 
      * 
+
 struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
+        int damage_reduction_rate,int enforce,int price, int additional_damge_rate , 
+        int additional_ac_rate,int additional_cri_rate, int is_debuff)
+    {
+    strcpy(a.name, a_name);
+    a.uid = make_unique_number();
+    a.enforce = enforce;
+    a.damage_reduction = damage_reduction;
+    a.damage_reduction_rate= damage_reduction_rate;    
+    a.price = price;
+    a.additional_damge_rate = additional_damge_rate;
+    a.additional_ac_rate = additional_ac_rate;    //추가 회피율
+    a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
+    a.is_debuff = is_debuff;// 거의 모든 템은 상태이상을 제어할수 없지만 템1개는 ㅠ
+    return a;
+}
+}
+     */
+
+    struct amor amor1_leather;
+    struct amor amor2_iron;
+    struct amor amor3_strong_iron;
+    struct amor amor4_mithril;
+    struct amor amor5_advancing; //진격하는
+    struct amor amor6_golem;
+    struct amor amor7_cleans;
+    amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,0,50,0,0,0,0);
+        
+        
+    amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,0,50,0,0,0,0);
+    amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,50,0,0,0,0);
+    amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,50,0,0,0,0);
+    amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,50,0,0,20,0);
+    amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,50,20,0,0,0);
+    amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,50,0,0,0,0);
+// 갑옷
+
+//신발
+    struct amor amor1_leather_shoes;
+    struct amor amor2_iron_shoes;
+    struct amor amor3_strong_iron_shoes;
+    struct amor amor4_mithril_shoes;
+    struct amor amor5_poseidon_shoes; //진격하는
+    struct amor amor6_hermes_shoes;
+    struct amor amor7_hades_shoes;
+
+    /*
+    struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
         int damage_reduction_rate,int price, int additional_damge_rate , 
         int additional_ac_rate,int additional_cri_rate)
     {
@@ -305,25 +360,18 @@ struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
     a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
     return a;
 }
-     * 
-     */
+    */
 
-    struct amor amor1_leather;
-    struct amor amor2_iron;
-    struct amor amor3_strong_iron;
-    struct amor amor4_mithril;
-    struct amor amor5_advancing; //진격하는
-    struct amor amor6_golem;
-    struct amor amor7_cleans;
-    amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,50,0,0,0,0);
-    amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,50,0,0,0,0);
-    amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,50,0,0,0,0);
-    amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,50,0,0,0,0);
-    amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,50,0,0,20,0);
-    amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,50,20,0,0,0);
-    amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,50,0,0,0,0);
+    amor1_leather_shoes= set_amor(
+        amor1_leather_shoes,
+        "가죽신발",
+        -3,
+        0,
+        0,
+        50,
 
 
+    )
 
 
 
