@@ -2,7 +2,10 @@
 #include <string.h> 
 #include <stdlib.h>
 #include <time.h>
+
 #define UNIQUE_SIZE 1000
+
+
 /**
  * 게임에 대한 모든 아이템과 몬스터들을 객체화? 구조체화 했다.
  * 
@@ -14,14 +17,32 @@
  * 호출되어 리턴된 값으로 기본검이 생성됩니다. 
  * 
  */
-int make_unique_number();
 
-struct sword  set_sword(struct sword p, char s_name[],int damage,int enforce, int attribute, int price, int mage_rate, int cri_rate);
-struct amor set_amor(struct amor a, char a_name[],int damage_reduction,int damage_reduction_rate, int additional_damge_rate, int price, int mage_rage);
+int make_num();
+int return_min_max_random(int min_, int max_);
+struct sword set_sword(struct sword s, 
+    char s_name[],
+    int damage,
+    int enforce,
+    int attribute, 
+    int price,
+    int cri_rate, 
+    int magic_rate);
+struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
+        int damage_reduction_rate,int tier,int enforce,int price, int additional_damge_rate , 
+        int additional_ac_rate,int additional_cri_rate, int is_debuff);
 struct potion set_potion(struct potion p, char p_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll);
 struct refinery_material set_refinery_material(struct refinery_material r, char r_name[],int refinery_tier, int is_MTS, int quantity);
-struct monster set_monster(struct monster m, char m_name[],int tier_info ,int hp,int atk,int def, int type, char drop_items[10][50] ,char special_effect[10][50]);
-struct swordman set_swordman(struct swordman s, char s_name[],int lv ,int hp,int atk,int matk, int def, int ac,int cri, int str, int int_, int dex);
+struct monster set_monster(
+    struct monster m, char m_name[],
+    int tier_lv_min, int tier_lv_max, 
+    int hp_min, int hp_max,  
+    int atk_min, int atk_max, 
+    int def_min, int def_max,
+    int weak_attr, int strong_attr
+    // struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm
+);
+struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,int matk, int def, int ac,int cri, int str, int int_, int dex);
 struct inven set_inven(struct inven i,int wallet, char bag[20][20], struct potion);
 
 struct sword
@@ -38,17 +59,17 @@ struct sword
 
 };
 
-struct sword  set_sword(struct sword s, 
+struct sword set_sword(struct sword s, 
     char s_name[],
     int damage,
     int enforce,
     int attribute, 
     int price,
     int cri_rate, 
-    int magic_rate)
+    int magic_rate)  
 {
     strcpy(s.name, s_name);
-    s.uid = make_unique_number();
+    s.uid = make_num();
     s.damage = damage;
     s.enforce= enforce;
     s.attribute = attribute;
@@ -83,19 +104,19 @@ struct amor
 struct amor  set_amor(struct amor a, char a_name[],int damage_reduction,
         int damage_reduction_rate,int tier,int enforce,int price, int additional_damge_rate , 
         int additional_ac_rate,int additional_cri_rate, int is_debuff)
-    {
-    strcpy(a.name, a_name);
-    a.uid = make_unique_number();
-    a.tier = tier;
-    a.enforce = enforce;
-    a.damage_reduction = damage_reduction;
-    a.damage_reduction_rate= damage_reduction_rate;    
-    a.price = price;
-    a.additional_damge_rate = additional_damge_rate;
-    a.additional_ac_rate = additional_ac_rate;    //추가 회피율
-    a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
-    a.is_debuff = is_debuff;// 거의 모든 템은 상태이상을 제어할수 없지만 템1개는 ㅠ
-    return a;
+        {
+            strcpy(a.name, a_name);
+            a.uid = make_num();
+            a.tier = tier;
+            a.enforce = enforce;
+            a.damage_reduction = damage_reduction;
+            a.damage_reduction_rate= damage_reduction_rate;    
+            a.price = price;
+            a.additional_damge_rate = additional_damge_rate;
+            a.additional_ac_rate = additional_ac_rate;    //추가 회피율
+            a.additional_cri_rate = additional_cri_rate;   //추가 치명타율
+            a.is_debuff = is_debuff;// 거의 모든 템은 상태이상을 제어할수 없지만 템1개는 ㅠ
+            return a;
 }
 
 struct consume
@@ -189,10 +210,10 @@ struct monster
     int strong_attr; //1,2,3  불/물/자연
     
     // int type; //  불은 물에 약하고 물은 자연에 약하고 자연은 불에 약함
-    // struct amor drop_amor;
-    // struct sword drop_sword;
-    // struct consume drop_consume_item;
-    // struct refinery_material drop_rm_item;
+    struct amor drop_amor;
+    struct sword drop_sword;
+    struct consume drop_consume_item;
+    struct refinery_material drop_rm_item;
                 //int drop_item_tier;   // 드랍아이템
                 //int drop_item_material;
 };  
@@ -204,15 +225,15 @@ struct monster set_monster(
     int def_min, int def_max,
     int weak_attr, int strong_attr
     // struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm
-)
+    )
 {
     strcpy(m.name, m_name);
     m.tier_lv_max = tier_lv_max;
     m.tier_lv_min = tier_lv_min;
-    m.tier = return_min_max_random(tier_lv_min,tier_lv_max);
+    m.tier = return_min_max_random(tier_lv_min, tier_lv_max);
     m.hp_min= hp_min;    
     m.hp_max= hp_max;    
-    m.hp = return_min_max_random(hp_min,hp_max);
+    m.hp = return_min_max_random(hp_min, hp_max);
     m.atk_min = atk_min;
     m.atk_max = atk_max;
     m.atk = return_min_max_random(atk_min,atk_max);
@@ -264,62 +285,44 @@ struct inven
     int money;
     struct sword sw[5];
     struct amor am[15];
-    struct consume con[1200];    
-    struct refinery_material rm[100];
+    struct consume con;    
+    struct refinery_material rm;
 };
-//물품을 넣을땐 한번에 한개씩만넣자 모든일은 하나씩! 대신여러개라면 for문이라는 든든한 동료가 있다.
-
-
-
 
 //최대값 최소값 랜덤 리턴하는 함수
 int return_min_max_random(int min_, int max_)
 {
 
-    srand((unsigned)time(NULL));
+    
     int r_number;
     int flag;
 
     r_number = (rand()% (max_-min_+1)+min_); 
 
-    printf("%d", r_number);
+    
 
     return r_number;
 }
 
 // unique number 생성기
-int make_unique_number()
+int make_num()
 {    
     // int rotto[SIZE];
-    int r_number;
-    int flag;
-    int unique_number_list[UNIQUE_SIZE];
-  
-    srand((unsigned)time(NULL));
-
-    r_number = (rand()% UNIQUE_SIZE) +1; 
-
-    // is_in 을 호출해야함 
-    for (int i=0; i<=sizeof(unique_number_list)/sizeof(int) ;i++)
-    {
-        if (r_number!= unique_number_list[i])
-        {    
-            unique_number_list[i] = r_number;            
-        }
-        
-    }
-    return r_number;
+    int time_num = (unsigned int)time(NULL);
+    
+    return time_num;
 }
 
 
-int main()
+int setting()
 {
     /* 
     구조체에대한 설명https://dojang.io/mod/page/view.php?id=571
     주영님의 설명 https://cafe.naver.com/f-e/cafes/28969626/articles/54579?boardtype=L&menuid=777&referrerAllArticles=false
     책 712
     */
-
+    
+    
 
     struct sword sword1_basic;
     struct sword sword2_longsword;
@@ -330,14 +333,14 @@ int main()
     struct sword sword7_s;
     struct sword sword8_operaters;
     // 이름, 공격력, 강화, 속성, 가격, 마법, 치명타 칼을 초기화
-    sword1_basic =set_sword(sword1_basic,"기본검", 2,0,0,50,0,0);
-    sword2_longsword= set_sword(sword2_longsword,"장검", 10,0,0,500,0,0);
-    sword3_japanese= set_sword(sword3_japanese,"일본도", 20,0,0,1000,0,0);
-    sword4_ssaulabi= set_sword(sword4_ssaulabi,"싸울아비장검", 40,0,0,0,0,0);
-    sword5_sword_Of_Chaos= set_sword(sword5_sword_Of_Chaos,"혼돈의검", 50,0,0,0,0,30);
-    sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도", 100,0,0,0,0,0);    
-    sword7_s= set_sword(sword7_s,"마왕을멸하는마검", 50,0,0,0,50,0);
-    sword8_operaters=set_sword(sword8_operaters,"운영자검",1111,0,0,0,0,0);
+    // sword1_basic =set_sword(num,sword1_basic,"기본검", 2,0,0,50,0,0);
+    // sword2_longsword= set_sword(num,sword2_longsword,"장검", 10,0,0,500,0,0);
+    // sword3_japanese= set_sword(num,sword3_japanese,"일본도", 20,0,0,1000,0,0);
+    // sword4_ssaulabi= set_sword(num,sword4_ssaulabi,"싸울아비장검", 40,0,0,0,0,0);
+    // sword5_sword_Of_Chaos= set_sword(num,sword5_sword_Of_Chaos,"혼돈의검", 50,0,0,0,0,30);
+    // sword6_world_Best= set_sword(num,sword6_world_Best,"천상천하제일무쌍도", 100,0,0,0,0,0);    
+    // sword7_s= set_sword(num,sword7_s,"마왕을멸하는마검", 50,0,0,0,50,0);
+    // sword8_operaters=set_sword(num,sword8_operaters,"운영자검",1111,0,0,0,0,0);
 
 // 갑옷
     struct amor amor1_leather;
@@ -347,6 +350,7 @@ int main()
     struct amor amor5_advancing; //진격하는
     struct amor amor6_golem;
     struct amor amor7_cleans;
+    int num = 99;
     amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,0,0,50,0,0,0,0);
     amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,0,0,50,0,0,0,0);
     amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,0,0,50,0,0,0,0);
@@ -488,7 +492,6 @@ int main()
 
    struct skill fire_ball;
    struct skill water_spear;
-   struct skill fire_ball;
    struct skill thunder_bolt;
    struct skill stone_shower;
    struct skill water_bomb;
@@ -559,6 +562,9 @@ int main()
 
 // 드랍아이템 함수 용사의 인벤을 받고 몬스터정보를 받아서 처리후 인벤리턴
     //https://cafe.naver.com/startdev?iframe_url=/ArticleList.nhn%3Fsearch.clubid=28969626%26search.menuid=767%26search.boardtype=L
+    
+    
+    
     // struct inven drop_item(struct inven yongs_, struct monster mon)
     // {   
         
@@ -599,7 +605,7 @@ int main()
     // return inven
 
     // }
-    // struct reward drop_item_boss(sword_rate,consum_item_rate,)
+    // struct inven drop_item_boss(sword_rate,consum_item_rate,)
     // {
     //     // 리워드선물세트는 정해지지 않았지만 인벤에 들어갈수 있는 아이템들이다. 
     //     // 아직 뭐가 뭔지 모르니까 4티어 하나씩 주자 나중에 30%를 구현하자
@@ -619,4 +625,8 @@ int main()
     // {
     //     //엔딩크레딧 보여준다.
         
+    // }
+    // int main()
+    // {
+    //     return 0;
     // }
