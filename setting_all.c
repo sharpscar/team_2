@@ -344,7 +344,7 @@ int main()
     sword4_ssaulabi= set_sword(sword4_ssaulabi,"싸울아비장검", 40,0,0,0,0,0);
     sword5_sword_Of_Chaos= set_sword(sword5_sword_Of_Chaos,"혼돈의검", 50,0,0,0,0,30);
     sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도", 100,0,0,0,0,0);    
-    sword7_s= set_sword(sword7_s,"마왕을 멸하는 마검", 50,0,0,0,50,0);
+    sword7_s= set_sword(sword7_s,"마왕을멸하는마검", 50,0,0,0,50,0);
     sword8_operaters=set_sword(sword8_operaters,"운영자검",1111,0,0,0,0,0);
 
 
@@ -475,23 +475,7 @@ int main()
 
     // 포션
 
-    // struct consume set_consume(
-    //     struct consume c, char c_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,
-    //     int anti_posion,int is_blessing, int is_all_cure, int is_potal_scroll, int is_teleport_scroll)
-    // {
-    //     strcpy(c.name, c_name);
-    //     c.healing_hp_rate = healing_hp_rate;
-    //     c.healing_mp_rate= healing_mp_rate;
-    //     c.price = price;
-    //     c.quantity = quantity;
-    //     c.anti_posion = anti_posion;
-    //     c.is_blessing = is_blessing;
-    //     c.is_all_cure = is_all_cure;
-    //     c.is_potal_scroll = is_potal_scroll;
-    //     c.is_teleport_scroll =is_teleport_scroll;
-    //     // strcpy(p.special[5][30], special[5][30]);
     
-    //     return c;
     // }
     
     struct consume red_potion;
@@ -617,9 +601,9 @@ int main()
     basilisk = set_monster(basilisk,"바실리스크",5,5,600,900,100,130,30,50,1,2); 
 
     /*
-    마왕 방어력이 0? 그리고 용복이의 체력 *300% 추가체력이있고 중독 저주가 20% 확율
+마왕 방어력이 0? 그리고 용복이의 체력 *300% 추가체력이있고 중독 저주가 20% 확율
 
-    */ 
+*/ 
     demon_Lord = set_monster(demon_Lord,"마왕",5,5,500,500,250,350,0,0,3,1); 
 
 
