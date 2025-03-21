@@ -140,7 +140,7 @@ int main()
     int index=0;
     while(index<20)
     {
-        if(my_inven.sw[index].uid <0)
+        if(my_inven.sw[index].uid <=0)
         {
             inven_space_index_sword = index;
             break;
@@ -177,7 +177,7 @@ sizeof(my_inven.sw) 의 크기만큼 반복문을 돌려서 uid가 -1 을 찾아
 
     }
     
-    scanf("몇번을 꺼내시겠습니까? ",&answer);
+    scanf("몇번을 꺼내시겠습니까? %d ", &answer);
     /**7: void deleteStudent( student* aryStudent, int nStudentCount )  // 학생 정보 삭제
  {
          int nDelStudent; //사용자 입력값
@@ -259,7 +259,7 @@ struct inven bank_main(struct inven user_inven)
     }
 
     // 은행은 돈을 저장한다.
-
+return user_inven;
     
     // 우선 유저의 인벤토리를 불러온다.
 }

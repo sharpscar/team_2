@@ -181,7 +181,7 @@ struct skill
     int use_mp;
 };
 
-struct skill set_skill(struct skill s, char s_name[],int get_level ,int type,int magic_rate,int use_mp)
+struct skill set_skill(struct skill s, char s_name[],int get_level ,int type,float magic_rate,int use_mp)
 {
     strcpy(s.name, s_name);
     s.get_level = get_level;
