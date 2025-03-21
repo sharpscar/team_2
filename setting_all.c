@@ -651,10 +651,7 @@ int main()
         struct consume co;
         //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
     };
-    struct inven mi;
-    
-
-
+    struct inven mi;    
     
     mi.sw = sword1_basic;
 
@@ -663,10 +660,66 @@ int main()
 }
 
 
+// 드랍아이템 함수 용사의 인벤을 받고 몬스터정보를 받아서 처리후 인벤리턴
+    //https://cafe.naver.com/startdev?iframe_url=/ArticleList.nhn%3Fsearch.clubid=28969626%26search.menuid=767%26search.boardtype=L
+    // struct inven drop_item(struct inven yongs_, struct monster mon)
+    // {   
+        
+    //     //
+    //     switch (mon.name)
+    //     {
+    //     case  "오크전사":
+    //         // do something
+    //         return inven
+    //         break;
+    //     case  "좀비":
+    //         // do something
+    //         return inven
+    //         break;
+    //     case  "구울":
+    //         // do something
+    //         return inven
+    //         break;
+    //     case  "해골":
+    //         // do something
+    //         return inven
+    //         break;
+    //     case  "리치":
+    //         // do something
+    //         return inven
+    //         break;
+    //     case  "바실리스크":
+    //         // do something
+    //         return inven
+    //         break;
+    //     case  "마왕":
+    //         // do something
+    //         return inven
+    //         break;
+    //     default:
+    //         break;
+    //     }               
+    // return inven
 
-
-//해야하는것! 칼 , 방어구 id 속성 추가  그리고 세터함수에 unique_id를 넣는다.
-    
-
-
-   
+    // }
+    // struct reward drop_item_boss(sword_rate,consum_item_rate,)
+    // {
+    //     // 리워드선물세트는 정해지지 않았지만 인벤에 들어갈수 있는 아이템들이다. 
+    //     // 아직 뭐가 뭔지 모르니까 4티어 하나씩 주자 나중에 30%를 구현하자
+    //     //3티어 소비템 한개
+    //     // 순간이동주문서
+    //     // 4티어무기 ? 
+    //     // sword : sword4_ssaulabi 
+    //     // consume : teleport_scroll
+    //     // // 30확률 4티어 소비 (컨슘 ?)
+    //     // sword : sword5_sword_Of_Chaos //5티어 무기 ~6티어무기
+    //     // consume : white_potion  // 5티어 물약
+    //     // cosume :crazy_fire_piece// 4티어 강화재료 미친화염조각        
+    //     //골드 10000원
+        
+    // }
+    // struct reward drop_item_real_boss(sword_rate,consum_item_rate,)
+    // {
+    //     //엔딩크레딧 보여준다.
+        
+    // }
