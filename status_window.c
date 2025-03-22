@@ -32,4 +32,5 @@ int yongbok_status(){
 
     return 0;
 
+    //뭔가를 수정했어요
 }
