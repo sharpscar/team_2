@@ -8,65 +8,37 @@
 //     printf("1. 잡화상\n2. 제련소\n3. 마법상점\n4. 은행\n");
 //     printf("┗━━━━━━━━━━━━━━━━━┛\n");
 // }
+int inven[50];
+* shop_main();
 
 // 잡화상
-int* variety_store_main(struct inven *p){
-    /*
-     
-     * 구조체를 쓰겠당!
-     * 
-    struct inven
-    {
-        int wallet;
-        int stat[11];
-        char bag[20][20]; //캐릭터의 배낭이다.
-        char consume[100][30] // 열에는 '' 이런식으로 숫자를 표기한다 더좋은방식 있으면 알려주시면 적극 수용
+int main(){
+    shop_main();
 
-    };
-     *   struct inven my_visitor ={ 
-        100000,
-        {11,50,80,50,100,150,10,1,5,10,100,10},
-        {"헤드셋","작은가방","손난로","손수건"},
-        {
-            {"빨간물약","11"},
-            {"파란물약","51"},
-            {"소주","14"},
-            {"맥주","12"},
-            {"막걸리","41"},
-            {"위스키","1"}
-        }   
-    };
-     */
-    // struct inven
-    // {
-    //     int wallet;
-    //     int stat[11];
-    //     char bag[20][20]; //캐릭터의 배낭이다.
-    //     char consume[100][30] // 열에는 '' 이런식으로 숫자를 표기한다 더좋은방식 있으면 알려주시면 적극 수용
-
-    // };
-
-    // printf("이녀석의 소지금은 %d", p->wallet);
-    // printf("이녀석의 hp는 %d", p->stat[2]); 
-    // for (int i=0; i<4;i++)
-    // {
-    //     printf("이녀석의 가방에는 %s", p->bag[i]); 
-    // }
     
-    
-    
+    return inven[];
+}
 
-    int property[4][100];  // 상점이라 유저의 재산이 변동됩니다.
+
+int * shop_main()
+{
     int quit_shop;
     int shop_list_choice;
     int item_choice;
+    /**
+     * inven  은  유저의 가방입니다. 
+     * 0 돈주머니
+     * 1 스텟 
+     * 2 가방 <inven>
+     * 3 소모품 
+     * 
+     */
+    int inven[4][100]; 
     int item_count;
     int user_money = 1000;
     char shop_list[] [40] ={"기본검","장검","일본도","가죽갑옷","철갑옷","가죽신발","철신발","가죽장갑","철장갑","천망토","면망토","가죽투구","철투구","빨간물약","주황물약","맑은물약","파란물약","하얀물약","무지개물약","해독제","축복주문서","마을이동주문서","순간이동주문서"};
 
     int shop_price[23] = {50,500,10000,50,600,50,600,50,600,50,600,50,600,30,200,1000,50,300,1500,500,2000,200,1000};
-
-
 
     while(1){
     system("clear");
@@ -75,6 +47,7 @@ int* variety_store_main(struct inven *p){
     printf("1. 무기\n2. 갑옷\n3. 신발\n4. 장갑\n5. 망토\n6. 투구\n7. 물약\n8. 귀환서\n");
     scanf("%d",&shop_list_choice);
     system("clear");
+
     
         if (shop_list_choice == 1){  //무기
             for (int i = 0; i< 3; i++){
@@ -121,38 +94,94 @@ int* variety_store_main(struct inven *p){
         scanf("%d",&item_choice);
         // printf("수량을 입력하세요: ");
         // scanf("%d",&item_count);
-        item_count=1; //수량은 아직 .. 그저 구매만할꺼야! 0320 
+        
+        //이건 넘어가자
+        //현재  for문으로 배열에 넣을수있는 공간이 있는지 체크! 
+        //20개 공간중에 남는게 없으면 구매 불가
         
             if ((shop_price[item_choice])*item_count > user_money)
                 printf("잔액이 부족합니다.\n");
             else{
+                //구매완료
                 printf("%s %d개 구매하였습니다.\n",shop_list[item_choice],item_count);
+                
                 user_money -= (shop_price[item_choice])*item_count;
+                
+                inven[0][0] = user_money;
+                inven[1][0] = shop_list[item_choice]; //20 개만들어간다 
+                // int cnt = sizeof(inven[1][?] ) /sizeof(int); 
+                
 
-                // property의 변동이 생겼습니다.
-                property[0][0]=user_money;
-                property[1][0] = item_choice;// shoplist에 기반한 내용이기 때문에 앞으로 shoplist는 2차원 배열인데 그 정보를 항상 댈고다녀야할까
-                printf("현재 보유금액: %d]\n",user_money);
-                //set_inven();
-            }
-        
 
-        //추매기능은 아직 추매 ㄴㄴ ㅠ
+                printf("현재 보유금액: %d]\n",user_money);}
 
-        // printf("더 구매 하시겠습니까?: \n0.예\n1.아니오\n");
-        // scanf("%d",&quit_shop);
-        //     if (quit_shop == 1)
-        //         break;
+        printf("더 구매 하시겠습니까?: \n0.예\n1.아니오\n");
+        scanf("%d",&quit_shop);
+            if (quit_shop == 1)
+                break;
     }
-    // return property;
-    return 0;
+    /*
+     개발시 일단 숫자형 배열에 리턴한다고 생각하고 개발해뒀다.
+     
+     */
+    return *inven; 
 }
 
-// // church
+// int * church_main()
+// {
+//     int status[4][100]; // [2][0] hp  [2][1] mp [2][0]
+//     int stats [3] = {1,4,2};  //임의값
+//     int stats_sum = stats[0] + stats[1] + stats[2];
+//     char stats_name [] [3] = {"STR","INT","DEX"};
+//     int church_choice;
+//     int church_stats_yn;
+//     int level =5;  //임의값
+//     int user_hp = 30; //임의값
+//     int user_mp = 5; //임의값
+//     int max_user_hp = 100;  //임의값
+//     int max_user_mp = 10; //임의값
+
+//     printf("성소에 도착했습니다.\n");
+//     printf("치유: 0\n스탯초기화: 1\n");
+//     scanf("%d",&church_choice);
+//     system("clear");
+
+//     if (church_choice == 0){
+//         user_hp = max_user_hp;
+//         user_mp = max_user_mp;
+//         printf("치유되었습니다.\n");
+//         printf("hp: %d mp: %d\n",user_hp,user_mp);
+
+//     }
+//     if (church_choice == 1){
+//         printf("스탯:\n");
+//         printf("스탯의 합계: %d\n",stats_sum);
+//         printf("STR: %d INT: %d DEX: %d\n",stats[0],stats[1],stats[2]);
+//         printf("스탯을 초기화?\n1.네\n2.아니오\n");
+//         scanf("%d",&church_stats_yn);
+//         if (church_stats_yn == 1){
+//             for (int i=0;i<3;i++){
+//                 stats[i] = 0;
+//             }
+//             printf("초기화되었습니다.\n");
+//             printf("스탯의 합계: %d\n",stats_sum);
+//             printf("STR: %d INT: %d DEX: %d\n",stats[0],stats[1],stats[2]);
+//         }
+        
+//     }
+
+// }
+    
+
+    
+ 
+
+}
+//church
 // int main(){
 //     int stats [3] = {1,4,2};  //임의값
 //     int stats_sum = stats[0] + stats[1] + stats[2];
-//     // char stats_name [] [3] = {"STR","INT","DEX"};
+//     char stats_name [] [3] = {"STR","INT","DEX"};
 //     int church_choice;
 //     int church_stats_yn;
 //     int level =5;  //임의값
@@ -189,3 +218,9 @@ int* variety_store_main(struct inven *p){
         
 //     }
 // }
+
+
+
+
+
+
