@@ -18,6 +18,7 @@
  * 
  * 호출되어 리턴된 값으로 기본검이 생성됩니다. 
  * 
+ * // 장비 이름 뒤에는 index_ -1:보관소, 0:상점 , 1: 몹드랍
  */
 
 int make_num();
@@ -33,8 +34,8 @@ struct sword set_sword(struct sword s,
     int cri_rate, 
     int magic_rate);
 struct amor  set_amor(struct amor a, char a_name[],int index_,int damage_reduction,
-        int damage_reduction_rate,int tier,int enforce,int price, int additional_damge_rate , 
-        int ,int additional_cri_rate, int is_debuff);
+    int damage_reduction_rate,int tier,int enforce,int price, int additional_damge_rate , 
+    int additional_ac_rate,int additional_cri_rate, int is_debuff);
 struct potion set_potion(struct potion p, char p_name[],int healing_hp_rate,int healing_mp_rate,int price,int quantity,int anti_posion,int blessing, int all_cure, int potal_scroll, int teleport_scroll);
 struct refinery_material set_refinery_material(struct refinery_material r, char r_name[],int refinery_tier, int is_MTS, int quantity);
 struct monster set_monster(
@@ -332,140 +333,7 @@ int make_num()
 
 int setting()
 {
-    /* 
-    구조체에대한 설명https://dojang.io/mod/page/view.php?id=571
-    주영님의 설명 https://cafe.naver.com/f-e/cafes/28969626/articles/54579?boardtype=L&menuid=777&referrerAllArticles=false
-    책 712
-    */
     
-    
-//     struct sword sword0_hand;
-//     struct sword sword1_basic;
-//     struct sword sword2_longsword;
-//     struct sword sword3_japanese;
-//     struct sword sword4_ssaulabi;
-//     struct sword sword5_sword_Of_Chaos;
-//     struct sword sword6_world_Best;
-//     struct sword sword7_s;
-//     struct sword sword8_operaters;
-//     // 이름, 공격력, 강화, 속성, 가격, 마법, 치명타 칼을 초기화
-//     sword0_hand =set_sword(sword0_hand,"맨손",0,0, 2,0,0,50,0,0);
-//     sword1_basic =set_sword(sword1_basic,"기본검", 1,0,2,0,0,50,0,0);
-//     sword2_longsword= set_sword(sword2_longsword,"장검",2,0, 10,0,0,500,0,0);
-//     sword3_japanese= set_sword(sword3_japanese,"일본도",3,0, 20,0,0,1000,0,0);
-//     sword4_ssaulabi= set_sword(sword4_ssaulabi,"싸울아비장검",4,0, 40,0,0,0,0,0);
-//     sword5_sword_Of_Chaos= set_sword(sword5_sword_Of_Chaos,"혼돈의검",5,0, 50,0,0,0,0,30);
-//     sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도",5,0, 100,0,0,0,0,0);    
-//     sword7_s= set_sword(sword7_s,"마왕을멸하는마검", 5,0,50,0,0,0,50,0);
-//     sword8_operaters=set_sword(sword8_operaters,"운영자검",0,0,1111,0,0,0,0,0);
-
-// // 갑옷
-//     struct amor amor1_leather;
-//     struct amor amor2_iron;
-//     struct amor amor3_strong_iron;
-//     struct amor amor4_mithril;
-//     struct amor amor5_advancing; //진격하는
-//     struct amor amor6_golem;
-//     struct amor amor7_cleans;
-//     int num = 99;
-//     amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,0,0,0,50,0,0,0,0);
-//     amor2_iron=set_amor(amor2_iron,"철갑옷",-6,0,0,0,50,0,0,0,0);
-//     amor3_strong_iron=set_amor(amor3_strong_iron,"강철갑옷",-12,0,0,0,50,0,0,0,0);
-//     amor4_mithril=set_amor(amor4_mithril,"미스릴갑옷",-20,0,0,0,50,0,0,0,0);
-//     amor5_advancing=set_amor(amor5_advancing,"진격하는 자의 갑옷",-20,0,0,0,50,0,0,20,0);
-//     amor6_golem=set_amor(amor6_golem,"골렘의 갑옷",-20,0,0,0,50,20,0,0,0);
-//     amor7_cleans=set_amor(amor7_cleans,"정화의 갑주",-20,0,0,0,50,0,0,0,0);
-
-
-// //신발
-//     struct amor amor1_leather_shoes;
-//     struct amor amor2_iron_shoes;
-//     struct amor amor3_strong_iron_shoes;
-//     struct amor amor4_mithril_shoes;
-//     struct amor amor5_poseidon_shoes; //진격하는
-//     struct amor amor6_hermes_shoes;
-//     struct amor amor7_hades_shoes; 
-
-//     amor1_leather_shoes= set_amor(amor1_leather_shoes,"가죽신발",-1,0,0,0,50,0,0,0,0);
-//     amor2_iron_shoes= set_amor(amor2_iron_shoes,"철신발",-3,0,0,0,600,0,0,0,0);
-//     amor3_strong_iron_shoes= set_amor(amor3_strong_iron_shoes,"강철신발",-6,0,0,0,0,0,0,0,0);
-//     amor4_mithril_shoes= set_amor(amor4_mithril_shoes,"미스릴신발",-8,0,0,0,0,0,0,0,0);
-//     amor5_poseidon_shoes= set_amor(amor5_poseidon_shoes,"포세이돈의신발",-8,0,0,0,0,0,0,0,1);
-//     amor6_hermes_shoes= set_amor(amor6_hermes_shoes,"헤르메스의신발",-3,0,0,0,0,0,0,20,0);
-//     amor7_hades_shoes= set_amor(amor7_hades_shoes,"하데스의신발",-3,0,0,0,0,10,0,0,0);
-
-//     //장갑 
-//     struct amor amor1_leather_gloves;
-//     struct amor amor2_iron_gloves;
-//     struct amor amor3_strong_iron_gloves;
-//     struct amor amor4_mithril_gloves;
-//     struct amor amor5_hand_of_sin_gloves; //죄악의마수
-//     struct amor amor6_fairy_bracelet_gloves;// 요정의 팔찌
-//     struct amor amor7_chaos_gloves; //
-
-//     amor1_leather_gloves= set_amor(
-//         amor1_leather_gloves,"가죽장갑",-1,0,0,0,50,0,0,0,0);
-//     amor2_iron_gloves= set_amor(
-//         amor2_iron_gloves,"철장갑",-3,0,0,0,600,0,0,0,0);
-//     amor3_strong_iron_gloves= set_amor(
-//         amor3_strong_iron_gloves,"강철장갑",-6,0,0,0,0,0,0,0,0);
-//     amor4_mithril_gloves= set_amor(
-//         amor4_mithril_gloves,"미스릴장갑",-8,0,0,0,0,0,0,0,0);
-//     amor5_hand_of_sin_gloves= set_amor(
-//         amor5_hand_of_sin_gloves,"죄악의마수",-8,0,0,0,0,10,0,0,0);//모든공격력10퍼
-//     amor6_fairy_bracelet_gloves= set_amor(
-//         amor6_fairy_bracelet_gloves,"요정의팔찌",-8,0,0,0,0,10,0,0,0);
-//     amor7_chaos_gloves= set_amor(
-//         amor7_chaos_gloves,"혼돈의 수갑",-8,0,0,10,0,0,0,20,0);
-
-//     //망토
-//     struct amor amor1_leather_cloak;
-//     struct amor amor2_cotton_cloack;
-//     struct amor amor3_silk_cloak;
-//     struct amor amor4_magic_cloack;
-//     struct amor amor5_white_cloack; //죄악의마수
-//     struct amor amor6_brave_cloack;// 요정의 팔찌
-//     struct amor amor7_red_cloack; //        
-
-//     amor1_leather_gloves= set_amor(
-//         amor1_leather_gloves,"천망토",-1,0,0,0,50,0,0,0,0);
-//     amor2_cotton_cloack= set_amor(
-//         amor2_cotton_cloack,"면망토",-3,0,0,0,600,0,0,0,0);
-//     amor3_silk_cloak= set_amor(
-//         amor3_silk_cloak,"비단망토",-6,0,0,0,0,0,0,0,0);
-//     amor4_magic_cloack= set_amor(
-//         amor4_magic_cloack,"마법망토",-8,0,0,0,0,0,0,0,0);
-//     amor5_white_cloack= set_amor(
-//         amor5_white_cloack,"순백의망토",-20,0,0,0,0,0,0,0,0);
-//     amor6_brave_cloack= set_amor(
-//         amor6_brave_cloack,"용기의망토",-8,0,0,0,0,10,0,0,0);
-//     amor7_red_cloack= set_amor(
-//         amor7_red_cloack,"진홍의망토",-8,0,0,0,0,0,0,20,0);
-
-//     //투구
-//     struct amor amor1_leather_helmet;
-//     struct amor amor2_iron_helmet;
-//     struct amor amor3_strong_iron_helmet;
-//     struct amor amor4_mithril_helmet;
-//     struct amor amor5_brave_helmet; //죄악의마수
-//     struct amor amor6_dragon_knight;// 요정의 팔찌
-//     struct amor amor7_strange_hood; //        
-
-//     amor1_leather_gloves= set_amor(
-//         amor1_leather_gloves,"가죽투구",-1,0,0,0,50,0,0,0,0);
-//     amor2_iron_helmet= set_amor(
-//         amor2_iron_helmet,"철투구",-3,0,0,0,600,0,0,0,0);
-//     amor3_strong_iron_helmet= set_amor(
-//         amor3_strong_iron_helmet,"강철투구",-6,0,0,0,0,0,0,0,0);
-//     amor4_mithril_helmet= set_amor(
-//         amor4_mithril_helmet,"미스릴투구",-8,0,0,0,0,0,0,0,0);
-//     amor5_brave_helmet= set_amor(
-//         amor5_brave_helmet,"용사의투구",-8,0,0,0,0,10,0,0,0);
-//     amor6_dragon_knight= set_amor(
-//         amor6_dragon_knight,"용기사의투구",-8,0,0,0,0,10,0,0,0);
-//     amor7_strange_hood= set_amor(
-//         amor7_strange_hood,"기묘한두건",-1,0,0,0,0,0,30,0,0);
-
     // 포션
 
     struct consume red_potion;
