@@ -292,12 +292,13 @@ struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,i
     return s;
 }
 
+
 struct inven
 {
     int money;
     struct sword sw[5];
     struct amor am[15];
-    struct consume con;    
+    struct consume con[13];    
     struct refinery_material rm;
 };
 

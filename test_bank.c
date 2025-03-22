@@ -216,7 +216,7 @@ return bank_inven;
         int bank_last_index=0;
         int select;
 
-        // get_index_for_inven_sword_array :끝 인덱스를 가져오는 함수 없으면 0 꽉차면 5겠지?
+        // get_index_for_inven_sword_array :끝 인덱스를 가져오는 함수 없으면 0 꽉차면 5겠지? 5  15
         inven_space_index_sword = get_index_for_inven_sword_array(user_inven);
         //쓰고 있는 크기를 가져와서 칼의 경우는 5- inven_space_index = 더 넣을수 있는 공간입니다.
 
