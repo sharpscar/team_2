@@ -229,19 +229,28 @@ return bank_inven;
             printf("%s  칼이 있습니다. 꺼내실 장비를 선택해줘요 %d 번\n", user_inven.sw[i].name, i+1 );
 
         }
+        printf("몇번을 꺼내시겠습니까?\n");
         
-        scanf("몇번을 꺼내시겠습니까? %s ", &select);
-        select = (int)select;
+        scanf(" %d", &select);
+        getchar();
+        select-=1; // 인덱스는 0부터'
+        select=1;
         // answer = 2;
         printf("=====================> %d\n" , select);
         // struct sword selected_sword = user_inven.sw[answer]; //정보를 넣는다.
 
-        printf("%s", user_inven.sw[select].name);
+        printf("%s를 선택 하셨습니다.\n", user_inven.sw[select].name);
         //은행 인벤에 sw 리스트의 인덱스를 가져온다. 
         bank_last_index = get_index_for_inven_sword_array(bank_inven);
 
+        printf("%d", bank_last_index);
+        bank_inven.sw[bank_last_index] = user_inven.sw[select];
 
+        printf("유저의 인벤에 있던 칼의 uid는 %d\n", user_inven.sw[select].uid);
+        printf("은행에 넣은 칼의 uid는? %d\n",bank_inven.sw[bank_last_index].uid );
 
+        printf("유저의 인벤에 있는 3번 칼의 uid는 %d\n", user_inven.sw[2].uid);
+        
 
 
 
