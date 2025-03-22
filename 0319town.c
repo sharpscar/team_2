@@ -123,9 +123,58 @@ int * shop_main()
     /*
      개발시 일단 숫자형 배열에 리턴한다고 생각하고 개발해뒀다.
      
-
-    */
+     */
     return *inven; 
+}
+
+// int * church_main()
+// {
+//     int status[4][100]; // [2][0] hp  [2][1] mp [2][0]
+//     int stats [3] = {1,4,2};  //임의값
+//     int stats_sum = stats[0] + stats[1] + stats[2];
+//     char stats_name [] [3] = {"STR","INT","DEX"};
+//     int church_choice;
+//     int church_stats_yn;
+//     int level =5;  //임의값
+//     int user_hp = 30; //임의값
+//     int user_mp = 5; //임의값
+//     int max_user_hp = 100;  //임의값
+//     int max_user_mp = 10; //임의값
+
+//     printf("성소에 도착했습니다.\n");
+//     printf("치유: 0\n스탯초기화: 1\n");
+//     scanf("%d",&church_choice);
+//     system("clear");
+
+//     if (church_choice == 0){
+//         user_hp = max_user_hp;
+//         user_mp = max_user_mp;
+//         printf("치유되었습니다.\n");
+//         printf("hp: %d mp: %d\n",user_hp,user_mp);
+
+//     }
+//     if (church_choice == 1){
+//         printf("스탯:\n");
+//         printf("스탯의 합계: %d\n",stats_sum);
+//         printf("STR: %d INT: %d DEX: %d\n",stats[0],stats[1],stats[2]);
+//         printf("스탯을 초기화?\n1.네\n2.아니오\n");
+//         scanf("%d",&church_stats_yn);
+//         if (church_stats_yn == 1){
+//             for (int i=0;i<3;i++){
+//                 stats[i] = 0;
+//             }
+//             printf("초기화되었습니다.\n");
+//             printf("스탯의 합계: %d\n",stats_sum);
+//             printf("STR: %d INT: %d DEX: %d\n",stats[0],stats[1],stats[2]);
+//         }
+        
+//     }
+
+// }
+    
+
+    
+ 
 
 }
 //church
