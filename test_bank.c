@@ -30,6 +30,7 @@ void remove_sw_from_user_inven(int index_);
 void remove_amor_from_user_inven(int index_);
 void show_stored_sword(int index_);
 void show_stored_amor(int index_);
+int select_amount();
 int main()
 {
 
@@ -83,6 +84,7 @@ if (answer==1)
     sword_index = select_sword_index(0);
     store_sword_to_bank(sword_index);
     remove_sw_from_user_inven(sword_index);
+    show_stored_sword(1);//저장된 물품을 보여준다.
 
 }else if(answer ==2)
 { 
@@ -90,12 +92,26 @@ if (answer==1)
     amor_index = select_amor_index(0);
     store_amor_to_bank(amor_index);
     remove_amor_from_user_inven(amor_index);
-    
+    show_stored_amor(1);
+
+
+}else if(answer == 3)
+{
+    int amount = select_amount();
+
 
 }
 
 
     return 0;
+}
+
+int select_amount()
+{
+    int amount;
+    printf("얼마를 입금하시겠습니까?");
+    scanf("%d", &amount);
+    return amount;
 }
 void remove_sw_from_user_inven(int index_)
 {
@@ -103,7 +119,7 @@ void remove_sw_from_user_inven(int index_)
     //용복이 인벤의 sw 배열 위치에서 선택한 인덱스부터 +1까지 값을 땡겨온다.
     struct inven yongs_inven;
     yongs_inven=invens[0];
-    printf("저장해야할 인덱스%d\n", index_);
+    
     for (int i=index_; i<cnt; i++)
     {
         yongs_inven.sw[i] = yongs_inven.sw[i+1];
@@ -122,14 +138,15 @@ void remove_amor_from_user_inven(int index_)
     struct inven yongs_inven;
     yongs_inven=invens[0];
     printf("저장해야할 인덱스%d\n", index_);
+    // 지정된 인덱스 뒤에 전부 앞으로 끌어옴  그러니까 뒤에가 다날아가는게 아니고 덮어쓴다 ^^
     for (int i=index_; i<cnt; i++)
     {
-        yongs_inven.sw[i] = yongs_inven.sw[i+1];
+        yongs_inven.am[i] = yongs_inven.am[i+1];
     }
 
     for (int i=index_; i<cnt; i++)
     {
-        printf("현재 용복이 칼 %s\n",yongs_inven.sw[i].name);
+        printf("현재 용복이 방어구 %s\n",yongs_inven.am[i].name);
     }
     
 }
@@ -180,6 +197,7 @@ int select_sword_index(int index_)
     return answer_2;
     
 }
+// 매개변수는  invens의 인덱스 0용복 1잡 2보 3제
 int select_amor_index(int index_)
 {
     
@@ -190,7 +208,7 @@ int select_amor_index(int index_)
     printf("유저의 인벤에서 꺼내실 장비를 선택해줘요");
     // printf("보관하실것이 1.칼 입니까? 2.방어구 입니까 3.화폐입니까 4.소모품 입니까?\n");
 
-    int answer_2;
+    int answer_2; 
     printf("몇번을 꺼내시겠습니까?\n");
         
     scanf(" %d", &answer_2);
@@ -240,7 +258,7 @@ void show_stored_amor(int index_)
     //이 함수는 칼을 보관소에 넣기위한 함수이지 받아올 함수가 아니다.
     inven_space_index_amor = get_index_for_inven_sword_array(inven);
     
-    printf("현재 가방에는 방어구가 %d개 있습니다.\n",inven_space_index_amor);
+    
     for(int i=0; i<inven_space_index_amor; i++)
     {
     // 출력한다.칼의 이름을 출력한다.
@@ -251,7 +269,7 @@ void show_stored_amor(int index_)
 int ask_what_to_store()
 {
     int answer_1;
-    printf("보관 가능한 물품으로는 1.무기, 2방어구, 3.화폐, 4 소모품 있습니다.\n");
+    printf("보관 가능한 물품으로는 1.무기, 2.방어구, 3.화폐, 4 소모품 있습니다.\n");
     printf("보관 물품 가져오기는  5.무기, 6.방어구, 7.화폐, 8 소모품 있습니다.\n");
     printf("======================================================\n");
     printf("선택해주세요 >");
