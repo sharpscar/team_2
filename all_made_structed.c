@@ -457,17 +457,17 @@ int setting()
 
 
 
-    struct inven
-    {
-        int money;
-        struct sword sw;
-        struct amor am;
-        struct consume co;
-        //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
-    };
-    struct inven mi;    
+    // struct inven
+    // {
+    //     int money;
+    //     struct sword sw;
+    //     struct amor am;
+    //     struct consume co;
+    //     //struct potion 을 구현하고 싶었는데 어떻게 하는지 모르겠다.
+    // };
+    // struct inven mi;    
     
-    mi.sw = sword1_basic;
+    // mi.sw = sword1_basic;
 
 
 
@@ -513,20 +513,20 @@ struct Person {    // 사람 구조체
 
 
     // 용복이 스텟 초기값!
-    struct character yongbok;       //용복이 캐릭터 변수
-    struct status yongbok_status;   // 용복이 상태 변수
-    struct sword sword1_basic;      //용복이 무기 변수 1티어
-    sword1_basic = set_sword(sword1_basic,"기본검",1,-1, 2,0,0,50,0,0);              // 기본검
-    yongbok_status = set_status(yongbok_status,"용복이",1,100,20,10,0,2,5,10,10,10); // 상태
+    // struct character yongbok;       //용복이 캐릭터 변수
+    // struct status yongbok_status;   // 용복이 상태 변수
+    // struct sword sword1_basic;      //용복이 무기 변수 1티어
+    // sword1_basic = set_sword(sword1_basic,"기본검",1,-1, 2,0,0,50,0,0);              // 기본검
+    // yongbok_status = set_status(yongbok_status,"용복이",1,100,20,10,0,2,5,10,10,10); // 상태
     
-    struct inven invens[4];           // 용잡보제   0용복이 1잡화소 2보관소 3제련소
-    invens[0].sw = sword1_basic;      
-    struct inven yongbok_inven;       
+    // struct inven invens[4];           // 용잡보제   0용복이 1잡화소 2보관소 3제련소
+    // invens[0].sw = sword1_basic;      
+    // struct inven yongbok_inven;       
     
-    yongbok_inven.money=100;                    // 용복 돈
-    yongbok.char_status = yongbok_status;       // 용복 스텟
-    yongbok_inven.sw = sword1_basic;            // 용복무기 
-    yongbok.char_inven = yongbok_inven; 
-    return 0;
+    // yongbok_inven.money=100;                    // 용복 돈
+    // yongbok.char_status = yongbok_status;       // 용복 스텟
+    // yongbok_inven.sw = sword1_basic;            // 용복무기 
+    // yongbok.char_inven = yongbok_inven; 
+    // return 0;
     
 }

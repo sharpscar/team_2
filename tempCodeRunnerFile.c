@@ -1,0 +1,1 @@
+select_amor_index
