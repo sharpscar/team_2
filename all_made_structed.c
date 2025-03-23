@@ -522,9 +522,11 @@ struct Person {    // 사람 구조체
     struct inven invens[4];           // 용잡보제   0용복이 1잡화소 2보관소 3제련소
     invens[0].sw = sword1_basic;      
     struct inven yongbok_inven;       
+    
     yongbok_inven.money=100;                    // 용복 돈
     yongbok.char_status = yongbok_status;       // 용복 스텟
     yongbok_inven.sw = sword1_basic;            // 용복무기 
+    yongbok.char_inven = yongbok_inven; 
     return 0;
     
 }
