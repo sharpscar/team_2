@@ -422,8 +422,8 @@ int setting()
      struct amor amor6_brave_cloack;// 요정의 팔찌
      struct amor amor7_red_cloack; //        
  
-     amor1_leather_gloves= set_amor(
-         amor1_leather_gloves,"천망토",1,-1,0,0,0,50,0,0,0,0);
+     amor1_leather_cloak= set_amor(
+        amor1_leather_cloak,"천망토",1,-1,0,0,0,50,0,0,0,0);
      amor2_cotton_cloack= set_amor(
          amor2_cotton_cloack,"면망토",1,-3,0,0,0,600,0,0,0,0);
      amor3_silk_cloak= set_amor(

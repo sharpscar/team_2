@@ -19,14 +19,17 @@ struct inven my_inven;
 
 
 int get_index_for_inven_sword_array(struct inven inven_);
+int get_index_for_inven_amor_array(struct inven inven_);
 void to_store();
 int ask_what_to_store();
 int select_sword_index(int index_);
+int select_amor_index(int index_);
 void store_sword_to_bank(int sword_index); // 보관소 저장하는 함수
+void store_amor_to_bank(int amor_index);
 void remove_sw_from_user_inven(int index_);
+void remove_amor_from_user_inven(int index_);
 void show_stored_sword(int index_);
 void show_stored_amor(int index_);
-
 int main()
 {
 
@@ -36,12 +39,21 @@ int main()
     sword3_japanese= set_sword(sword3_japanese,"일본도",3, -1,20,0,0,1000,0,0);
     sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도",5,-1, 100,0,0,0,0,0);
 
+    struct amor amor1_leather_gloves;
+
+    amor1_leather_gloves= set_amor(
+        amor1_leather_gloves,"가죽장갑",1,-1,0,0,0,50,0,0,0,0);
+    struct amor amor1_leather_cloak;
+    amor1_leather_cloak= set_amor(
+        amor1_leather_cloak,"천망토",1,-1,0,0,0,50,0,0,0,0);
+    struct amor amor4_magic_cloack;
+    amor4_magic_cloack= set_amor(
+        amor4_magic_cloack,"마법망토",1,-8,0,0,0,0,0,0,0,0);
 
 
-
-    my_inven.am[0]=
-    my_inven.am[1]=
-    my_inven.am[2]=
+    my_inven.am[0]=amor1_leather_gloves;
+    my_inven.am[1]=amor1_leather_cloak;
+    my_inven.am[2]=amor4_magic_cloack;
     
     my_inven.sw[0] = sword1_basic; // 내인벤은 칼[0],[1],[2],[3],[4]
     my_inven.sw[1] = sword3_japanese;
@@ -75,8 +87,9 @@ if (answer==1)
 }else if(answer ==2)
 { 
     int amor_index;
-
     amor_index = select_amor_index(0);
+    store_amor_to_bank(amor_index);
+    remove_amor_from_user_inven(amor_index);
     
 
 }
@@ -87,6 +100,24 @@ if (answer==1)
 void remove_sw_from_user_inven(int index_)
 {
     int cnt = 5; //칼 배열의 크기
+    //용복이 인벤의 sw 배열 위치에서 선택한 인덱스부터 +1까지 값을 땡겨온다.
+    struct inven yongs_inven;
+    yongs_inven=invens[0];
+    printf("저장해야할 인덱스%d\n", index_);
+    for (int i=index_; i<cnt; i++)
+    {
+        yongs_inven.sw[i] = yongs_inven.sw[i+1];
+    }
+
+    for (int i=index_; i<cnt; i++)
+    {
+        printf("현재 용복이 칼 %s\n",yongs_inven.sw[i].name);
+    }
+    
+}
+void remove_amor_from_user_inven(int index_)
+{
+    int cnt = 15; //방어구 배열의 크기
     //용복이 인벤의 sw 배열 위치에서 선택한 인덱스부터 +1까지 값을 땡겨온다.
     struct inven yongs_inven;
     yongs_inven=invens[0];
@@ -113,6 +144,20 @@ void store_sword_to_bank(int index_)
     store_inven.sw[empty_index] =  yongs_inven.sw[index_];
 
     printf("상점 보관소에 보관된 칼 %s", store_inven.sw[0].name );
+}
+void store_amor_to_bank(int index_)
+{
+    int empty_index;
+    struct inven store_inven;
+    struct inven yongs_inven;
+    store_inven = invens[2];
+    yongs_inven = invens[0];
+    empty_index = get_index_for_inven_amor_array(store_inven);
+    store_inven.am[empty_index] = yongs_inven.am[index_];
+
+    printf("상점 보관소에 보관된 방어구 %s", store_inven.am[0].name );
+
+
 }
 int select_sword_index(int index_)
 {
@@ -152,7 +197,7 @@ int select_amor_index(int index_)
     getchar();
     answer_2-=1; // 인덱스는 0부터'  
     visitors_inven = invens[0];
-    printf("%s를 선택 하셨습니다.\n", visitors_inven.sw[answer_2].name);
+    printf("%s를 선택 하셨습니다.\n", visitors_inven.am[answer_2].name);
 
     return answer_2;
         
@@ -195,7 +240,7 @@ void show_stored_amor(int index_)
     //이 함수는 칼을 보관소에 넣기위한 함수이지 받아올 함수가 아니다.
     inven_space_index_amor = get_index_for_inven_sword_array(inven);
     
-    printf("현재 가방에는 칼이 %d개 있습니다.\n",inven_space_index_amor);
+    printf("현재 가방에는 방어구가 %d개 있습니다.\n",inven_space_index_amor);
     for(int i=0; i<inven_space_index_amor; i++)
     {
     // 출력한다.칼의 이름을 출력한다.
@@ -231,4 +276,21 @@ int get_index_for_inven_sword_array(struct inven inven_)
 
     }
     return inven_space_index_sword;
+}
+int get_index_for_inven_amor_array(struct inven inven_)
+{
+    int index= 0 ;
+    int inven_space_index_amor=0;
+    while(index<20)
+    {
+        // 빈배열 찾는방식 안되면 index_를 비교하거나 스위치문으로 교체 (-2상점발, -1보관소물건,1몹물건)
+        if(inven_.am[index].uid <=0)
+        {
+            inven_space_index_amor = index;
+            break;
+        }
+        index++;
+
+    }
+    return inven_space_index_amor;
 }

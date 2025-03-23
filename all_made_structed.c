@@ -298,14 +298,21 @@ struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,i
 힘 인덱 10씩
 */
 
-
+//요구사항 명세서를 뒤늦게 이해함  보관소의 보관물품 100개 제한 유저는 20개 제한  
 struct inven
 {
     int money;
-    struct sword sw[5];
-    struct amor am[15];
+    struct sword sw[50];
+    struct amor am[50];
     struct consume con[13];    
     struct refinery_material rm[5];
+};
+
+struct equip
+{
+    struct sword sw;
+    struct amor am[5]; // 뚜껑 장갑 신발 망토 갑옷  이 물품상태 + 스텟에 띠라 능력치가 달라짐 
+
 };
 
 struct character
