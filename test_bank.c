@@ -25,12 +25,16 @@ int ask_what_to_store();
 int select_sword_index(int index_);
 int select_amor_index(int index_);
 void store_sword_to_bank(int sword_index); // 보관소 저장하는 함수
+void widthraw_sword_to_user(int sword_index);
 void store_amor_to_bank(int amor_index);
 void remove_sw_from_user_inven(int index_);
+void remove_sw_from_store_inven(int index_);
 void remove_amor_from_user_inven(int index_);
 void show_stored_sword(int index_);
 void show_stored_amor(int index_);
 int select_amount();
+int show_me_the_money();
+void save_money_to_bank(int amount);
 int main()
 {
 
@@ -59,12 +63,15 @@ int main()
     my_inven.sw[0] = sword1_basic; // 내인벤은 칼[0],[1],[2],[3],[4]
     my_inven.sw[1] = sword3_japanese;
     my_inven.sw[2] = sword6_world_Best;
-    
-    invens[0] = my_inven;
+    my_inven.sw[3] = sword1_basic;
+    my_inven.sw[4] = sword1_basic;
+    my_inven.money = 1000000;
+    invens[2] = my_inven;
+    // invens[0] = my_inven;
                // 인벤들은 용[0],잡[1],보[2],제[3]
  
     
-    yongbok_inven.money=100;      
+         
 
 // 예상되는 함수는
 // 1. user_inven의 내용을 출력하는 함수
@@ -97,12 +104,34 @@ if (answer==1)
 
 }else if(answer == 3)
 {
+    // 갖고있는 돈을 보여주자
+
+    int visitors_property = show_me_the_money();
+    printf("현재 계좌예 $ %d원 있습니다.", visitors_property);
+
     int amount = select_amount();
+    save_money_to_bank(amount);
 
-
+}else if(answer ==4 )
+{
+    printf("소모품은 미안하지만 구현이 덜되었습니다. 보관말고 일단 마시세요");
 }
+else if(answer ==5)
+{
+    //보관되어있는 물품을 꺼낸다. 
+    int sword_index;
+    // sword_index = select_sword_index(0);
+    // store_sword_to_bank(sword_index);
+    // remove_sw_from_user_inven(sword_index);
+    // show_stored_sword(1);
+    sword_index = select_sword_index(1);
+    widthraw_sword_to_user(sword_index);
+    remove_sw_from_store_inven(sword_index);
 
+    
 
+    
+}
     return 0;
 }
 
@@ -131,6 +160,11 @@ void remove_sw_from_user_inven(int index_)
     }
     
 }
+void save_money_to_bank(int amount)
+{
+    invens[1].money = invens[1].money + amount;
+    invens[0].money = invens[0].money - amount;
+}
 void remove_amor_from_user_inven(int index_)
 {
     int cnt = 15; //방어구 배열의 크기
@@ -150,6 +184,32 @@ void remove_amor_from_user_inven(int index_)
     }
     
 }
+
+void remove_sw_from_store_inven(int index_)
+{
+    
+    int cnt = 5; //칼 배열의 크기
+    //용복이 인벤의 sw 배열 위치에서 선택한 인덱스부터 +1까지 값을 땡겨온다.
+    struct inven store_inven;
+    store_inven=invens[2];
+
+    for (int i=index_; i<cnt; i++)
+    {
+        printf("현재 인벤 칼  %s\n",store_inven.sw[i].name);
+    }
+   printf("*************************");
+    // 지정된 인덱스 뒤에 전부 앞으로 끌어옴  그러니까 뒤에가 다날아가는게 아니고 덮어쓴다 ^^
+    for (int i=index_; i<cnt; i++)
+    {
+        store_inven.sw[i] = store_inven.sw[i+1];
+    }
+
+    for (int i=index_; i<cnt; i++)
+    {
+        printf("현재 인벤 칼  %s\n",store_inven.sw[i].name);
+    }
+
+}
 void store_sword_to_bank(int index_)
 {
     int empty_index;
@@ -161,6 +221,18 @@ void store_sword_to_bank(int index_)
     store_inven.sw[empty_index] =  yongs_inven.sw[index_];
 
     printf("상점 보관소에 보관된 칼 %s", store_inven.sw[0].name );
+}
+
+void widthraw_sword_to_user(int index_)
+{
+    int empty_index;
+    struct inven store_inven;
+    struct inven yongs_inven; 
+    store_inven = invens[2];
+    yongs_inven = invens[0];
+    empty_index = get_index_for_inven_sword_array(yongs_inven);
+    yongs_inven.sw[empty_index] =  store_inven.sw[index_];
+
 }
 void store_amor_to_bank(int index_)
 {
@@ -176,13 +248,19 @@ void store_amor_to_bank(int index_)
 
 
 }
+int show_me_the_money()
+{
+    struct inven visitors_inven;
+    visitors_inven = invens[0];
+    return visitors_inven.money;
+}
 int select_sword_index(int index_)
 {
     struct inven visitors_inven;
     visitors_inven = invens[index_];
 
     show_stored_sword(0); // 방문자의 인벤에서 꺼내는 경우 0  보관소의 인벤에서 꺼내는 경우 1
-    printf("유저의 인벤에서 꺼내실 장비를 선택해줘요");
+    printf("인벤에서 꺼내실 장비를 선택해줘요");
     // printf("보관하실것이 1.칼 입니까? 2.방어구 입니까 3.화폐입니까 4.소모품 입니까?\n");
 
     int answer_2;

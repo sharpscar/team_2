@@ -1,1 +1,1 @@
-select_amor_index
+widthraw_sword_to_user
