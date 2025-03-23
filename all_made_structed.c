@@ -303,6 +303,14 @@ struct inven
     struct refinery_material rm;
 };
 
+struct character
+{
+    struct inven;
+    struct status;
+};
+
+
+
 //최대값 최소값 랜덤 리턴하는 함수
 int return_min_max_random(int min_, int max_)
 {

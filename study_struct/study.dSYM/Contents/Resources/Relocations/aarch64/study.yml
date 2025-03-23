@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/scar/c_workspace/team_project/team_2/study_struct/study'
+relocations:     []
+...

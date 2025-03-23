@@ -113,7 +113,7 @@
 //     struct refinery_material rm;
 // };
 
-struct inven sword_store_to_bank(struct inven, struct inven);
+void  sword_store_to_bank(struct inven, struct inven);
 int get_index_for_inven_sword_array(struct inven inven_);
 struct inven test_set_item();
 int main()
@@ -128,11 +128,23 @@ int main()
     struct sword sword1_basic;
     struct sword sword3_japanese;
     struct sword sword6_world_Best;
+/**
+ * struct sword
+struct sword set_sword(struct sword s, 
+    char s_name[],
+    int tier,
+    int index_,
+    int damage,
+    int enforce,
+    int attribute, 
+    int price,
+    int cri_rate, 
+    int magic_rate) 
+ */
 
-
-    sword1_basic = set_sword(sword1_basic,"기본검", 2,0,0,50,0,0);
-    sword3_japanese= set_sword(sword3_japanese,"일본도", 20,0,0,1000,0,0);
-    sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도", 100,0,0,0,0,0);    
+    sword1_basic = set_sword(sword1_basic,"기본검",1,-1, 2,0,0,50,0,0);
+    sword3_japanese= set_sword(sword3_japanese,"일본도",3, -1,20,0,0,1000,0,0);
+    sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도",5,-1, 100,0,0,0,0,0);    
 
     //임의로 가짜데이터를 넣어봄 - uid는 잡아야할 버그: 중복된 유니크키?
     my_inven.sw[0] = sword1_basic;
@@ -140,7 +152,7 @@ int main()
     my_inven.sw[2] = sword6_world_Best;
     // 가방의 더 넣을수 있는 인덱스 (5- index가 1보다 클때 구매가능)
 
-    bank_inven =  sword_store_to_bank(bank_inven,my_inven);
+    sword_store_to_bank(bank_inven,my_inven);
     
     
     
@@ -150,6 +162,31 @@ return 0;
 
 struct inven bank_main(struct inven user_inven)
 {
+/*
+    
+    이전에 sturct inven 이라는 구조체를 만들었습니다.
+
+보관소를 만들던중에 함수는 한번에 2개 이상의 변수를 리턴할수 없다 라는 문제에 부딫혔는데요
+
+해결방안으로 떠오른걸 작성합니다.
+
+1. user_inven 에 저장되어 있는 아이템들을 출력한다.
+2.아이템들 중에 보관할 아이템을 고른다. (유저 입력)
+3. 해당 아이템을 임시 저장 변수에 저장
+4. 임시저장한 아이템을 shop_inven에 넣는다.
+5. 임시저장한 아이템을 user_inven에서 제거한다.
+6 저장된 아이템을 출력한다.
+
+
+
+예상되는 함수는
+1. user_inven의 내용을 출력하는 함수
+2. 저장할 아이템을 shop_inven에 넣고 shop_inven을 리턴하는 함수
+3. 변수에 있는 아이템을 찾아서 user_inven에서 제거하는 함수
+4 .인벤에 저장된 목록을 출력하는 함수
+    */
+
+
     int answer;
     
     struct inven bank_stored_inven;
@@ -206,22 +243,22 @@ return bank_inven;
 
 }
 
-    struct inven sword_store_to_bank(struct inven bank_inven, struct inven user_inven)
+    void sword_store_to_bank(struct inven bank_inven, struct inven user_inven)
     {
         int inven_space_index_sword;
-
-
         int sw_cnt  = sizeof(user_inven.sw) /sizeof(struct sword);
         int index=0;
         int bank_last_index=0;
         int select;
 
-        // get_index_for_inven_sword_array :끝 인덱스를 가져오는 함수 없으면 0 꽉차면 5겠지? 5  15
-        inven_space_index_sword = get_index_for_inven_sword_array(user_inven);
-        //쓰고 있는 크기를 가져와서 칼의 경우는 5- inven_space_index = 더 넣을수 있는 공간입니다.
+        printf("%d 귀신곡하겠네1 \n ",user_inven.sw[0].uid);
+        printf("%d 귀신곡하겠네1\n ",user_inven.sw[1].uid);
+        printf("%d 귀신곡하겠네1 \n ",user_inven.sw[2].uid);
 
-        //inven_space_index 해당 칼이 있는 인덱스  없으면 
-        // 현재 칼이 있는지 체크 해서 배열크기를 가져오고 넣을수 있는 인덱스를 가져와야함 .
+        // get_index_for_inven_sword_array :끝 인덱스를 가져오는 함수 없으면 0 꽉차면 5겠지? 5  15
+        //이 함수는 칼을 보관소에 넣기위한 함수이지 받아올 함수가 아니다.
+        inven_space_index_sword = get_index_for_inven_sword_array(user_inven);
+        
         printf("현재 내 가방에는 칼이 %d개 있다.\n",inven_space_index_sword);
         for(int i=0; i<inven_space_index_sword; i++)
         {
@@ -234,7 +271,7 @@ return bank_inven;
         scanf(" %d", &select);
         getchar();
         select-=1; // 인덱스는 0부터'
-        select=1;
+        // select=1; 
         // answer = 2;
         printf("=====================> %d\n" , select);
         // struct sword selected_sword = user_inven.sw[answer]; //정보를 넣는다.
@@ -246,24 +283,25 @@ return bank_inven;
         printf("%d", bank_last_index);
         bank_inven.sw[bank_last_index] = user_inven.sw[select];
 
-        printf("유저의 인벤에 있던 칼의 uid는 %d\n", user_inven.sw[select].uid);
-        printf("은행에 넣은 칼의 uid는? %d\n",bank_inven.sw[bank_last_index].uid );
-
-        printf("유저의 인벤에 있는 3번 칼의 uid는 %d\n", user_inven.sw[2].uid);
+        //유저 인벤에서 특정 인덱스의 sw를 제거하는 함수
+       
         
 
-
-
-        return bank_inven; //bank_inven;
+        // return bank_inven; //bank_inven;
     }
 
+    //유저 인벤에서 특정 인덱스의 칼을 제거 
+    struct inven get_rid_of_sword_from_user_inven(user_inven, select)
+    {
+        
+    }
    int get_index_for_inven_sword_array(struct inven inven_)
     {
         int index= 0 ;
         int inven_space_index_sword=0;
         while(index<20)
         {
-            // 빈배열 찾는방식
+            // 빈배열 찾는방식 안되면 index_를 비교하거나 스위치문으로 교체 (-2상점발, -1보관소물건,1몹물건)
             if(inven_.sw[index].uid <=0)
             {
                 inven_space_index_sword = index;
