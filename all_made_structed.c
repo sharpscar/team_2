@@ -46,7 +46,7 @@ struct monster set_monster(
     int weak_attr, int strong_attr
     // struct amor da,  struct sword ds,struct consume dc,struct refinery_material drm
 );
-struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,int matk, int def, int ac,int cri, int str, int int_, int dex);
+struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,int matk, int def, float ac,float cri, int str, int int_, int dex);
 
 struct inven set_inven(struct inven i,int wallet, char bag[20][20], struct potion);
 
@@ -272,15 +272,15 @@ struct status
     int atk;
     int matk;
     int def;
-    int ac;
-    int cri;
+    float ac;
+    float cri;
     int str;
     int int_; 
     int dex;
     //좌표 ()()(마을)()()
 };
 
-struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,int matk, int def, int ac,int cri, int str, int int_, int dex)
+struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,int matk, int def, float ac,float cri, int str, int int_, int dex)
 {
     strcpy(s.name, s_name);
     s.lv = lv;
