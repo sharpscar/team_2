@@ -308,7 +308,7 @@ struct inven
     struct consume con[13];    
     struct refinery_material rm[5];
 };
-//마을에서 사용할 인벤
+//마을에서 사용할 인벤 추후변경
 struct store_inven
 {
     struct sword sw[50];

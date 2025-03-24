@@ -31,7 +31,8 @@ void remove_sw_from_store_inven(int index_);        // 보관소의 인벤에서
 void remove_amor_from_user_inven(int index_);       // 유저의 인벤에서 방어구를 제거
 void show_stored_sword(int index_);                 // 보관 칼을 보여줌
 void show_stored_amor(int index_);                  // 보관 방어구를 보여줌
-int select_amount();                                // 입금액을 선택
+int select_amount_to_bank();                                // 입금액을 선택
+int select_amount_to_user();
 int show_me_the_money();                            // 돈달라는 기능
 void save_money_to_bank(int amount);                // 돈입금하는 기능
 int main()
@@ -128,7 +129,7 @@ if (answer==1)
     int visitors_property = show_me_the_money();
     printf("현재 계좌예 $ %d원 있습니다.", visitors_property);
 
-    int amount = select_amount();
+    int amount = select_amount_to_bank();
     save_money_to_bank(amount);
 
 }else if(answer ==4 )
@@ -143,21 +144,51 @@ else if(answer ==5)
     // store_sword_to_bank(sword_index);
     // remove_sw_from_user_inven(sword_index);
     // show_stored_sword(1);
-    sword_index = select_sword_index(1);
+    sword_index = select_sword_index(2);
     widthraw_sword_to_user(sword_index);
     remove_sw_from_store_inven(sword_index);
 
-    
-
-    
 }
+else if(answer ==6)
+{
+    //보관되어있는 물품을 꺼낸다. 
+    int amor_index;
+    // sword_index = select_sword_index(0);
+    // store_sword_to_bank(sword_index);
+    // remove_sw_from_user_inven(sword_index);
+    // show_stored_sword(1);
+    amor_index = select_amor_index(2);
+    widthraw_sword_to_user(amor_index);
+    remove_sw_from_store_inven(amor_index);
+
+}else if(answer == 7)
+{
+    //은행돈 빼가기
+
+    int visitors_property = show_me_the_money();
+    printf("현재 계좌예 $ %d원 있습니다.", visitors_property);
+
+    int amount = select_amount_to_user();
+    widthraw_money_to_bank(amount);
+}
+
+
+
+
     return 0;
 }
 
-int select_amount()
+int select_amount_to_bank()
 {
     int amount;
     printf("얼마를 입금하시겠습니까?");
+    scanf("%d", &amount);
+    return amount;
+}
+int select_amount_to_user()
+{
+    int amount;
+    printf("얼마를 출금하시겠습니까?");
     scanf("%d", &amount);
     return amount;
 }
@@ -173,16 +204,21 @@ void remove_sw_from_user_inven(int index_)
         yongs_inven.sw[i] = yongs_inven.sw[i+1];
     }
 
-    for (int i=index_; i<cnt; i++)
-    {
-        printf("현재 용복이 칼 %s\n",yongs_inven.sw[i].name);
-    }
+    // for (int i=0; i<cnt; i++)
+    // {
+    //     printf("현재 용복이 칼 %s\n",yongs_inven.sw[i].name);
+    // }
     
 }
 void save_money_to_bank(int amount)
 {
     invens[1].money = invens[1].money + amount;
     invens[0].money = invens[0].money - amount;
+}
+void widthraw_money_to_bank(int amount)
+{
+    invens[1].money = invens[1].money - amount;
+    invens[0].money = invens[0].money + amount;
 }
 void remove_amor_from_user_inven(int index_)
 {
@@ -197,7 +233,7 @@ void remove_amor_from_user_inven(int index_)
         yongs_inven.am[i] = yongs_inven.am[i+1];
     }
 
-    for (int i=index_; i<cnt; i++)
+    for (int i=0; i<cnt; i++)
     {
         printf("현재 용복이 방어구 %s\n",yongs_inven.am[i].name);
     }
@@ -223,10 +259,7 @@ void remove_sw_from_store_inven(int index_)
         store_inven.sw[i] = store_inven.sw[i+1];
     }
 
-    for (int i=index_; i<cnt; i++)
-    {
-        printf("현재 인벤 칼  %s\n",store_inven.sw[i].name);
-    }
+
 
 }
 void store_sword_to_bank(int index_)
@@ -252,6 +285,7 @@ void widthraw_sword_to_user(int index_)
     empty_index = get_index_for_inven_sword_array(yongs_inven);
     yongs_inven.sw[empty_index] =  store_inven.sw[index_];
 
+    
 }
 void store_amor_to_bank(int index_)
 {
@@ -263,7 +297,7 @@ void store_amor_to_bank(int index_)
     empty_index = get_index_for_inven_amor_array(store_inven);
     store_inven.am[empty_index] = yongs_inven.am[index_];
 
-    printf("상점 보관소에 보관된 방어구 %s", store_inven.am[0].name );
+    
 
 
 }
@@ -279,7 +313,7 @@ int select_sword_index(int index_)
     visitors_inven = invens[index_];
 
     show_stored_sword(0); // 방문자의 인벤에서 꺼내는 경우 0  보관소의 인벤에서 꺼내는 경우 1
-    printf("인벤에서 꺼내실 장비를 선택해줘요");
+    printf("지금은 보관소 인벤에서 꺼내실 장비를 선택해줘요");
     // printf("보관하실것이 1.칼 입니까? 2.방어구 입니까 3.화폐입니까 4.소모품 입니까?\n");
 
     int answer_2;
