@@ -199,17 +199,16 @@ void shop() {
     sword1_basic =set_sword(sword1_basic,"기본검",1,-2,2,0,0,50,0,0);    
     sword2_longsword= set_sword(sword2_longsword,"장검",2,-2, 10,0,0,500,0,0);
     sword3_japanese= set_sword(sword3_japanese,"일본도",3,-2, 20,0,0,1000,0,0);
-    struct amor amor1_leather;
+    struct amor amor1_leather_amor;
     struct amor amor2_iron;    
-    amor1_leather=set_amor(amor1_leather,"가죽갑옷",1,-2,0,0,0,50,0,0,0,0);
+    amor1_leather_amor=set_amor(amor1_leather_amor,"가죽갑옷",1,-2,0,0,0,50,0,0,0,0);
     amor2_iron=set_amor(amor2_iron,"철갑옷",1,-6,0,0,0,50,0,0,0,0);
     
 
-    struct amor amor1_leather;
-    struct amor amor2_iron;
+    
 
-    amor1_leather=set_amor(amor1_leather,"가죽갑옷",-2,-2,0,0,0,50,0,0,0,0);
-    amor2_iron=set_amor(amor2_iron,"철갑옷",-2,-6,0,0,0,50,0,0,0,0);
+    
+    
 
 
 
@@ -234,6 +233,7 @@ void shop() {
     amor2_cotton_cloack= set_amor(
         amor2_cotton_cloack,"면망토",-2,-3,0,0,0,600,0,0,0,0);
 
+    
 
     struct amor amor1_leather_helmet;
     struct amor amor2_iron_helmet;
@@ -347,13 +347,7 @@ void shop() {
             invens[0].money -= (shop_price[item_choice])*item_count;
             printf("현재 보유금액: %d\n",invens[0].money);
 
-            // printf("구매한거 아마 일본도        %s", shop_list[item_choice]);
-
-            // printf("인벤에 sw, am 나눠서 배열의 2개씩만 보여주자\n");
-            // printf("%s  %s", invens[0].sw[0].name,invens[0].sw[1].name);
-            // printf("%s  %s", invens[0].am[0].name,invens[0].am[1].name);
-
-            // 23개의 경우의 수를 if문으로 작성하시오 
+            
             
             
             if(item_choice ==0)
@@ -368,13 +362,13 @@ void shop() {
 
             }else if(item_choice ==3)
             {
-                invens[0].am[cnt] = amor2_iron;
+                invens[0].am[cnt] = amor1_leather_amor;
             }else if(item_choice ==4)
             {
-                invens[0].am[cnt] = amor1_leather_shoes;
+                invens[0].am[cnt] = amor2_iron;
             }else if(item_choice ==5)
             {
-                invens[0].am[cnt] = amor2_iron_shoes;
+                invens[0].am[cnt] = amor1_leather_shoes;
             }
             else if(item_choice ==6)
             {
@@ -383,34 +377,60 @@ void shop() {
             else if(item_choice ==7)
             {
                 invens[0].am[cnt] = amor2_iron_gloves;
+            }else if(item_choice ==8)
+            {
+                invens[0].am[cnt] = amor1_leather_cloak;
+            }else if(item_choice ==9)
+            {
+                invens[0].am[cnt] = amor2_iron_gloves;
+            }else if(item_choice ==10)
+            {
+                invens[0].am[cnt] = amor2_cotton_cloack;
+            }
+            else if(item_choice ==11)
+            {
+                invens[0].am[cnt] = amor1_leather_helmet;
+            }else if(item_choice ==12)
+            {
+                invens[0].am[cnt] = amor2_iron_helmet;
+            }else if(item_choice ==13)
+            {
+                invens[0].con[cnt] = red_potion;
+            }else if(item_choice ==13)
+            {
+                invens[0].con[cnt] = orange_potion;
+            }else if(item_choice ==14)
+            {
+                invens[0].con[cnt] = clean_potion;
+            }else if(item_choice ==15)
+            {
+                invens[0].con[cnt] = blue_potion;
+            }else if(item_choice ==16)
+            {
+                invens[0].con[cnt] = white_potion;
+            }else if(item_choice ==17)
+            {
+                invens[0].con[cnt] = rainbow_potion;
+            }else if(item_choice ==18)
+            {
+                invens[0].con[cnt] = anti_toxic;
+            }else if(item_choice ==19)
+            {
+                invens[0].con[cnt] = blessing_scroll;
+            }else if(item_choice ==20)
+            {
+                invens[0].con[cnt] = potal_scroll;
+            }else if(item_choice ==21)
+            {
+                invens[0].con[cnt] = teleport_scroll;
             }
 
+            // test_code
+            // printf("구매한거         %s\n", shop_list[item_choice]);
 
-            /*
-            char shop_list[] [40] = {
-            "기본검","장검","일본도","가죽갑옷","철갑옷",
-            "가죽신발","철신발","가죽장갑","철장갑","천망토",
-            "면망토","가죽투구","철투구","빨간물약","주황물약",
-            "맑은물약","파란물약","하얀물약","무지개물약","해독제",
-            "축복주문서","마을이동주문서","순간이동주문서"};
-            */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // printf("인벤에 sw, am 나눠서 배열의 2개씩만 보여주자\n");
+            // printf("%s  %s", invens[0].sw[0].name,invens[0].sw[1].name);
+            // printf("%s  %s", invens[0].am[0].name,invens[0].am[1].name);
 
         }
 
