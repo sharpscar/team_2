@@ -40,10 +40,31 @@ void levelup_test_str_plus1();
 int main()
 {
 
-           // 기본검
+        struct equip yong_equip;
+
+        
+    
+            // 기본검
            yongbok_status = set_status(yongbok_status,"용복이",1,100,20,10,0,2,5,10,10,10); 
 
-           levelup_str_plus1();
+        //    levelup_str_plus1();
+        yong_equip.sw = sword3_japanese;
+
+        //일본도를 들구있고 여러가지 방어구를 가지고 있을때 스텟치를 변화시킨다. 
+        struct amor amor2_iron;
+        amor2_iron=set_amor(amor2_iron,"철갑옷",1,-6,0,0,0,50,0,0,0,0);
+        struct amor amor2_iron_shoes;
+        amor2_iron_shoes= set_amor(amor2_iron_shoes,"철신발",1,-3,0,0,0,600,0,0,0,0);
+        struct amor amor2_iron_gloves;
+        amor2_iron_gloves= set_amor(amor2_iron_gloves,"철장갑",1,-3,0,0,0,600,0,0,0,0);
+
+        struct amor amor2_cotton_cloack;
+        amor2_cotton_cloack= set_amor(amor2_cotton_cloack,"면망토",1,-3,0,0,0,600,0,0,0,0);
+          
+        struct amor amor2_iron_helmet;
+        amor2_iron_helmet= set_amor(amor2_iron_helmet,"철투구",1,-3,0,0,0,600,0,0,0,0);
+
+
 
 
 return 0;
