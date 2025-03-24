@@ -18,23 +18,22 @@ struct sword sword6_world_Best;
 struct inven my_inven;
 
 
-int get_index_for_inven_sword_array(struct inven inven_);
-int get_index_for_inven_amor_array(struct inven inven_);
-void to_store();
-int ask_what_to_store();
-int select_sword_index(int index_);
-int select_amor_index(int index_);
-void store_sword_to_bank(int sword_index); // 보관소 저장하는 함수
-void widthraw_sword_to_user(int sword_index);
-void store_amor_to_bank(int amor_index);
-void remove_sw_from_user_inven(int index_);
-void remove_sw_from_store_inven(int index_);
-void remove_amor_from_user_inven(int index_);
-void show_stored_sword(int index_);
-void show_stored_amor(int index_);
-int select_amount();
-int show_me_the_money();
-void save_money_to_bank(int amount);
+int get_index_for_inven_sword_array(struct inven inven_); //보관소에 칼 저장소 인덱스 가져오기
+int get_index_for_inven_amor_array(struct inven inven_);  //보관소에 방어구 저장소 인덱스 가져오기
+int ask_what_to_store();                            // 뭘 보관할지 물어보는 기능
+int select_sword_index(int index_);                 // 인벤의 몇번째 칼인지 인덱스를 받아서 리턴
+int select_amor_index(int index_);                  // 인벤의 몇번째 방어구인지 인덱스를 받아서 리턴
+void store_sword_to_bank(int sword_index);          // 보관소 칼 저장하는 함수
+void widthraw_sword_to_user(int sword_index);       // 보관소 칼을 인벤으로 가져오는 함수
+void store_amor_to_bank(int amor_index);            // 보관소에 방어구를 저장하는 함수
+void remove_sw_from_user_inven(int index_);         // 유저의 인벤에서 칼을 제거
+void remove_sw_from_store_inven(int index_);        // 보관소의 인벤에서 칼을 제거
+void remove_amor_from_user_inven(int index_);       // 유저의 인벤에서 방어구를 제거
+void show_stored_sword(int index_);                 // 보관 칼을 보여줌
+void show_stored_amor(int index_);                  // 보관 방어구를 보여줌
+int select_amount();                                // 입금액을 선택
+int show_me_the_money();                            // 돈달라는 기능
+void save_money_to_bank(int amount);                // 돈입금하는 기능
 int main()
 {
 

@@ -286,6 +286,7 @@ struct status set_status(struct status s, char s_name[],int lv ,int hp,int atk,i
     s.lv = lv;
     s.hp= hp;    
     s.atk = atk;
+    s.matk=matk;
     s.def= def;
     s.ac =ac;
     s.cri =cri;
@@ -453,9 +454,15 @@ int setting()
 
 
     struct amor amor7_cleans;
-
+    struct amor empty_amor_1;
+    struct amor  empty_amor_2;
+    struct amor  empty_amor_3;
+    struct amor  empty_amor_4;
+    struct amor  empty_amor_5;
 
     int num = 99;
+
+    
 
 
     amor1_leather=set_amor(amor1_leather,"가죽갑옷",1,-2,0,0,0,50,0,0,0,0);
@@ -758,14 +765,14 @@ int setting()
     
     
 
-    struct sword sword1_basic;
-    struct sword sword2_longsword;
-    struct sword sword3_japanese;
-    struct sword sword4_ssaulabi;
-    struct sword sword5_sword_Of_Chaos;
-    struct sword sword6_world_Best;
-    struct sword sword7_s;
-    struct sword sword8_operaters;
+    // struct sword sword1_basic;
+    // struct sword sword2_longsword;
+    // struct sword sword3_japanese;
+    // struct sword sword4_ssaulabi;
+    // struct sword sword5_sword_Of_Chaos;
+    // struct sword sword6_world_Best;
+    // struct sword sword7_s;
+    // struct sword sword8_operaters;
    
 //     // 포션
 
@@ -873,12 +880,11 @@ int setting()
     
     // mi.sw = sword1_basic;
 
-
-
-
-
-
-
+    struct equip
+    {
+        struct sword sw[1];
+        struct amor am[5];
+    };
 
     struct inven
     {
