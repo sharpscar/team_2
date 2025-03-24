@@ -38,8 +38,9 @@ void save_money_to_bank(int amount);
 int main()
 {
 
-    sword1_basic = set_sword(sword1_basic,"기본검",1,-1, 2,0,0,50,0,0);              // 기본검
+           // 기본검
     yongbok_status = set_status(yongbok_status,"용복이",1,100,20,10,0,2,5,10,10,10); 
+    
     sword1_basic = set_sword(sword1_basic,"기본검",1,-1, 2,0,0,50,0,0);
     sword3_japanese= set_sword(sword3_japanese,"일본도",3, -1,20,0,0,1000,0,0);
     sword6_world_Best= set_sword(sword6_world_Best,"천상천하제일무쌍도",5,-1, 100,0,0,0,0,0);
@@ -55,6 +56,24 @@ int main()
     amor4_magic_cloack= set_amor(
         amor4_magic_cloack,"마법망토",1,-8,0,0,0,0,0,0,0,0);
 
+    printf("%s",my_inven.sw[0].name);
+    
+
+    struct sword sword1_basic;      //용복이 무기 변수 1티어
+    sword1_basic = set_sword(sword1_basic,"기본검",1,-1, 2,0,0,50,0,0);       
+    my_inven.sw[0] = sword1_basic; // 내인벤은 칼[0],[1],[2],[3],[4]
+    /**
+     * 1 용복이 방문
+     * 2.용복이 인벤에 보유 칼 이름 , 속성  출력 
+     * 3.번호 선택
+     * 4.번호 선택된 칼 속성부여  sword1_basic.sw[3].attr = 0,1,2,3
+     * 5 번호 선택된 칼 속성 부여 출력
+     * 
+     */
+
+     /**
+     * 
+     */
 
     my_inven.am[0]=amor1_leather_gloves;
     my_inven.am[1]=amor1_leather_cloak;
@@ -66,7 +85,7 @@ int main()
     my_inven.sw[3] = sword1_basic;
     my_inven.sw[4] = sword1_basic;
     my_inven.money = 1000000;
-    invens[2] = my_inven;
+    invens[0] = my_inven;
     // invens[0] = my_inven;
                // 인벤들은 용[0],잡[1],보[2],제[3]
  
@@ -86,6 +105,7 @@ int answer = ask_what_to_store();
 
 if (answer==1)
 {
+    // 칼선택
     // 유저 -> 뱅크
     int sword_index;
     sword_index = select_sword_index(0);

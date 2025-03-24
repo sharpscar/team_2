@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "./all_setting.c"
+#include "./all_made_structed.c"
 
 #include <time.h> //time 함수를 사용하기 위한 헤더파일
 #define SIZE 50
@@ -59,7 +59,7 @@ int map[SIZE][SIZE] = {
 };
 
 
-int me[2] = { -5,  36}; // 9 9 내현재 좌표
+int me[2] = { 1,  1}; // 9 9 내현재 좌표
 char input = ' ';
 
 int inven[4][100]; 
@@ -136,7 +136,7 @@ void move() {
 void shop() {
 
     struct inven shop_inven;
-    shop_inven = setting_shop(shop_inven);
+    
 
 
     // system("clear");
