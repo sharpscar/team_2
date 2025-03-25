@@ -1,9 +1,8 @@
 
-
-#include <string.h>
+// #include <string.h>
 
 // #include "./test_bank.c"
-
+void when_victory();
 
 struct statu {                 // 여기서만 써보기 위해 statu로
     int lv;
@@ -434,6 +433,7 @@ int attack_call(int x){                                // 몬스터 종류에 �
             }
 
             result = (orc.hp <= 0) ? 0 : 1 ;
+            
             return result;
             break;
 
@@ -448,6 +448,7 @@ int attack_call(int x){                                // 몬스터 종류에 �
             }
 
             result = (zombi.hp <= 0) ? 0 : 1 ;
+            
             return result;
             break;
 
@@ -462,7 +463,9 @@ int attack_call(int x){                                // 몬스터 종류에 �
             }  
 
             result = (basillisk.hp <= 0) ? 0 : 1 ;
+           
             return result;
+
             break;     
 
         case 3:
@@ -477,7 +480,12 @@ int attack_call(int x){                                // 몬스터 종류에 �
             }  
 
             result = (boss.hp <= 0) ? 0 : 1 ;
+            if(result==0 ){
+                when_victory();
+            }
+            
             return result;
+           
             break;     
         }
    
