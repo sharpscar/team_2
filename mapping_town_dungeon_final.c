@@ -287,7 +287,7 @@ void dungeon_draw()   //던전 그리기
             }
              else if(dungeon1[y][x]==11)
             {
-                printf("ㅇㅇㅇㅇㅇㅇㅇ %d %d ", y, x);
+                
                 printf("🌀 ");    // 포털             
             }
 
@@ -620,12 +620,12 @@ int main()
             {   //던전에서 내 위치가 포털위치라면  (위치 부정확할 수 있음)
                 printf("여기도 1층인가?");  //테스트 출력
 
-                dungeon2_flag = 2;  //던전 2층 플래그 켜면 
+                dungeon2_flag = 1;  //던전 2층 플래그 켜면 
                 dungeon_flag = 0; //던전 1층 플래그를 끈다.
                     me[0] = 2;  //내 위치 초기화
                     me[1] = 1;
 
-                while (dungeon2_flag == 2)
+                while (dungeon2_flag == 1)
                 {   //던전2층 플래그가 켜지면
                     printf("던전2");  //테스트 출력
                     generate_monsters();  //몹 랜덤 생성
