@@ -1,43 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h> //rand함수 사용하기 위한 헤더파일
-#include <time.h> //time 함수를 사용하기 위한 헤더파일
+상점 호출 함수
 
-// void show_village_menu(){  //마을 메뉴 출력 함수 안에 들어갈 내용을 받아서 나오면 참 좋을 것 같음
-//     printf("┏━━━━━━━━━━━━━━━━━┓\n");
-//     printf(" ------마을------\n");
-//     printf("1. 잡화상\n2. 제련소\n3. 마법상점\n4. 은행\n");
-//     printf("┗━━━━━━━━━━━━━━━━━┛\n");
-// }
-
-// 잡화상
-int variety_store_main(){
-    /*
-     * inven  은  유저의 가방입니다. 
-     * 0 돈주머니
-     * 1 스텟 
-     * 2 가방 <inven>
-     * 3 소모품 
-     * 
-     */
-    int inven[4][100]; 
-    int quit_shop;
-    int shop_list_choice;
-    int item_choice;
-    int item_count;
-    int user_money = 1000;
-    char shop_list[] [40] ={"기본검","장검","일본도","가죽갑옷","철갑옷","가죽신발","철신발","가죽장갑","철장갑","천망토","면망토","가죽투구","철투구","빨간물약","주황물약","맑은물약","파란물약","하얀물약","무지개물약","해독제","축복주문서","마을이동주문서","순간이동주문서"};
-
-    int shop_price[23] = {50,500,10000,50,600,50,600,50,600,50,600,50,600,30,200,1000,50,300,1500,500,2000,200,1000};
-
-    while(1){
-    system("clear");
+void shop() {
+    // system("clear");
     printf("\t\t\t현재 보유금액: %d\n",user_money);
-    printf("구매하실 물건의 카테고리를 선택하세요\n");
-    printf("1. 무기\n2. 갑옷\n3. 신발\n4. 장갑\n5. 망토\n6. 투구\n7. 물약\n8. 귀환서\n");
+    printf("구매하실 물건의 카테고리를 선택하세요\n\n");
+    printf("1. 무기\n2. 갑옷\n3. 신발\n4. 장갑\n5. 망토\n6. 투구\n7. 물약\n8. 귀환서\n**이동 키 눌러 나가기**\n");
     scanf("%d",&shop_list_choice);
     system("clear");
 
-    
+    while(1)
+    {
         if (shop_list_choice == 1){  //무기
             for (int i = 0; i< 3; i++){
                 printf("%d. %s:\t\t(%d GOLD)\n",i,shop_list[i],shop_price[i]);
@@ -77,29 +49,43 @@ int variety_store_main(){
             for (int i = 21; i< 23; i++){
                 printf("%d. %s:\t\t(%d GOLD)\n",i,shop_list[i],shop_price[i]);
             }
-        }    
-    
-        printf("\n구매하실 상품의 번호를 입력하세요: ");
+        }
+        else
+            break;
+        printf("\n구매하실 상품의 번호를 입력하세요: (나가기: 23)");
         scanf("%d",&item_choice);
+        
+        if (item_choice ==23){
+            break;
+        }
+        if (item_choice < 0 || item_choice >= 23) {
+            printf("유효하지 않은 번호입니다.\n");
+            continue;
+        }
+
         printf("수량을 입력하세요: ");
         scanf("%d",&item_count);
-        
-            if ((shop_price[item_choice])*item_count > user_money)
-                printf("잔액이 부족합니다.\n");
-            else{
-                printf("%s %d개 구매하였습니다.\n",shop_list[item_choice],item_count);
-                user_money -= (shop_price[item_choice])*item_count;
-                printf("현재 보유금액: %d]\n",user_money);}
+
+
+        if ((shop_price[item_choice])*item_count > user_money)
+            printf("잔액이 부족합니다.\n");
+        else{
+            printf("%s %d개 구매하였습니다.\n\n",shop_list[item_choice],item_count);
+            user_money -= (shop_price[item_choice])*item_count;
+            printf("현재 보유금액: %d\n",user_money);
+        }
 
         printf("더 구매 하시겠습니까?: \n0.예\n1.아니오\n");
         scanf("%d",&quit_shop);
-            if (quit_shop == 1)
-                break;
+        if (quit_shop == 1)
+        {
+            break;
+        }               
     }
 }
 
-
-int church(){
+성소 호출 함수
+void church(){
     int stats [3] = {1,4,2};  //임의값
     int stats_sum = stats[0] + stats[1] + stats[2];
     char stats_name [] [3] = {"STR","INT","DEX"};
@@ -112,7 +98,7 @@ int church(){
     int max_user_mp = 10; //임의값
 
     printf("성소에 도착했습니다.\n");
-    printf("치유: 0\n스탯초기화: 1\n");
+    printf("치유: 0\n스탯초기화: 1\n\n***이동 키 눌러 나가기***");
     scanf("%d",&church_choice);
     system("clear");
 
@@ -140,29 +126,66 @@ int church(){
     }
 }
 
-
-
-// }
-// 돈 또는 재료 부족한지 확인하고 부족하다는 말과 리턴값 출력하는 함수
-
-//인챈트
-int main(){
-    srand(time(NULL));  //난수 사용을 위해 호출
+인챈트 호출함수
+void enchant_shop()  
+{
     int my_stone = 11;
     int rand_,result;
+    int enchant_yn;
     int require_stone = 10;
     char enchant_rand[][10] = {"물","불","자연"}; 
+    printf("인챈트 가게 입니다.\n인챈트기 마력응축석 10개가 소모됩니다\n\n");
+    printf("보유 마력 응축석: %d\n강화를 진행하시겠습니까?: \n0.아니오  1. 네\n", my_stone);
 
-    if (my_stone < 10)
-        printf("재료가 부족합니다.\n");
-    else
+    scanf("%d",&enchant_yn);
+    while(getchar() != '\n');
+    if (enchant_yn)
     {
-        rand_ = (rand()%3);
-        printf("무기에 %s 속성이 인챈트 되었습니다.\n",enchant_rand[rand_]);
-        my_stone -= 10;
-        printf("남은 마력응축석:%d",my_stone);
-        
+        if(my_stone < 10) printf("재료가 부족합니다.\n");
+        else if (my_stone >= 10)
+        {
+            rand_ = (rand() % 3);
+            printf("무기에 %s 속성이 인챈트 되었습니다.\n",enchant_rand[rand_]);
+            my_stone -= 10;
+            printf("남은 마력응축석:%d",my_stone);
+        }
+        getchar();
+
+    }
+}
+
+이벤트 호출 함수
+void event() {
+    if ((me[0] == 36) && (me[1] == 5)) 
+    {
+        system("clear");
+        shop();
+        me[0] = 35;
+    }
+    if ((me[0] == 17) && (me[1] == 17))
+    {
+        system("clear");
+        church();
+        me[0] = 16;
+    }
+    if ((me[0] == 39) && (me[1] == 35))
+    {
+       system("clear");
+        enchant_shop();
+        me[0] = 38;
     }
 }
 
 
+메인함수 내 예시
+int main()
+{
+    while (input != 'q') 
+    {
+        draw();
+        scanf("%c", &input);
+        move();
+        event();
+    }
+    return 0;
+}
