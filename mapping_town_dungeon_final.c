@@ -4,6 +4,39 @@
 #include <unistd.h>
 #include "./all_made_structed.c"
 #define SIZE 50
+
+
+int get_index_for_inven_sword_array(struct inven inven_); //보관소에 칼 저장소 인덱스 가져오기
+int get_index_for_inven_amor_array(struct inven inven_);  //보관소에 방어구 저장소 인덱스 가져오기
+int ask_what_to_store();                            // 뭘 보관할지 물어보는 기능
+int select_sword_index(int index_);                 // 인벤의 몇번째 칼인지 인덱스를 받아서 리턴
+int select_amor_index();                  // 인벤의 몇번째 방어구인지 인덱스를 받아서 리턴
+void store_sword_to_bank(int sword_index);          // 보관소 칼 저장하는 함수
+void widthraw_sword_to_user(int sword_index);       // 보관소 칼을 인벤으로 가져오는 함수
+void store_amor_to_bank(int amor_index);            // 보관소에 방어구를 저장하는 함수
+void remove_sw_from_user_inven(int index_);         // 유저의 인벤에서 칼을 제거
+void remove_sw_from_store_inven(int index_);        // 보관소의 인벤에서 칼을 제거
+void remove_amor_from_user_inven(int index_);       // 유저의 인벤에서 방어구를 제거
+void show_stored_sword();                 // 보관 칼을 보여줌
+void show_stored_amor(int index_);                  // 보관 방어구를 보여줌
+int select_amount();                                // 입금액을 선택
+int show_me_the_money();                            // 돈달라는 기능
+void save_money_to_bank(int amount);     
+int select_amount_to_bank();                                // 입금액을 선택
+int select_amount_to_user();
+void widthraw_money_to_bank(int amount);
+void print_yongandbanks_inven();
+void dungeon_move();
+void bank_shop();
+
+
+void generate_monsters2();
+void dungeon2_draw();
+void dungeon2_event();
+
+
+
+
 int me[2] = { 1,  1}; 
 char input = ' ';
 
@@ -14,6 +47,9 @@ int count = 0;  // 몬스터 개수
 int potal_count = 0;  // 조건에 맞는 포털 반복문 돌리기
 
 int monsters[MONSTER_COUNT][2];
+int monsters2[MONSTER_COUNT][2];
+
+
 int potals[2];
 int dungeon_flag = 0;
 int dungeon2_flag = 0;
@@ -598,43 +634,40 @@ int main()
         scanf("%c", &input);  //키보드 입력을 스캔
         move();  //움직이는 함수
         event();  //좌표값이 일치할 때 발생하는 함수
-        if ((me[0] == 48) && (me[1] == 49)) 
-        {  //내 좌표가 던전 입구 좌표와 일치하면
+        if ((me[0] == 48) && (me[1] == 49)) //내 좌표가 던전 입구 좌표와 일치하면
+        {  
             dungeon_flag = 1;  //던전 플래그를 켠다
             me[0] = 2;  //내 위치 초기화해준다
             me[1] = 1;
 
             while (dungeon_flag == 1)
             {  //던전 플래그가 켜지면
-                printf("여긴 1층일까?");  //테스트 출력
+                printf("1층\n");  //테스트 출력
 
                 generate_monsters();  //몬스터 랜덤 생성
                 dungeon_draw();  //던전 1층을 그립니다.
                 scanf("%c", &input);  //키 입력을 받고
                 dungeon_move();  //움직이는 함수
                 dungeon_event();
+                if((me[0] == 47)&&(me[1]) == 45){
+               //던전에서 내 위치가 포털위치라면  (위치 부정확할 수 있음)
+                printf("[2층]\n");  //테스트 출력
+
+                dungeon2_flag = 2;  //던전 2층 플래그 켜면 
+                dungeon_flag = 0; //던전 d 플래그를 끈다.
+                me[0] = 2;  //내 위치 초기화
+                me[1] = 1;}
+                
             }
-         //던전에서 몬스터를 만날 때 발생하는 이벤트
-
-            if((me[0] == 47)&&(me[1]) == 45)
-            {   //던전에서 내 위치가 포털위치라면  (위치 부정확할 수 있음)
-                printf("여기도 1층인가?");  //테스트 출력
-
-                dungeon2_flag = 1;  //던전 2층 플래그 켜면 
-                dungeon_flag = 0; //던전 1층 플래그를 끈다.
-                    me[0] = 2;  //내 위치 초기화
-                    me[1] = 1;
-
-                while (dungeon2_flag == 1)
-                {   //던전2층 플래그가 켜지면
-                    printf("던전2");  //테스트 출력
-                    generate_monsters();  //몹 랜덤 생성
-                    dungeon_draw();  //맵 그리기 여기서도 던전은 똑같이 그림!
-                    scanf("%c", &input);  //입력받기
-                    dungeon2_move();  //움직이기
-                    dungeon_event();
-                }
-            }  //몬스터 만날 때 발생.
+            while (dungeon2_flag == 2)
+            {   //던전2층 플래그가 켜지면
+                generate_monsters2();  //몹 랜덤 생성
+                dungeon2_draw();  //맵 그리기 여기서도 던전은 똑같이 그림!
+                scanf("%c", &input);  //입력받기
+                dungeon2_move();  //움직이기
+                dungeon2_event();
+            }
+            //몬스터 만날 때 발생.
         }
     }       
     return 0;
