@@ -316,9 +316,6 @@ void battle_start(int x){
             if (result == 0)                                  // 죽으면 마을로 돌아가고 경험치가 반으로 등등 너야함 그러나  주인공 죽는거 미구현
             break;                                            // 일단 break로 끝냄
         
-        
-
-
     }
             
     return;
