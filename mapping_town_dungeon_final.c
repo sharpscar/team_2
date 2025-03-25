@@ -17,6 +17,7 @@ int potal_count = 0;  // 조건에 맞는 포털 반복문 돌리기
 
 int monsters[MONSTER_COUNT][2];
 int monsters2[MONSTER_COUNT][2];
+int x,y;
 
 int potals[2];
 int dungeon_flag = 0;
@@ -843,15 +844,17 @@ void enchant_shop()  //인챈트
 
 void dungeon_event() {  //던전
       //방향키 눌러 나가기
-    if ((me[0] == monsters[0][0]) && (me[1] == monsters[0][1])){  //랜덤으로 생성한 첫번째 몬스터와 x,y가 같다면
+    if ((me[0] == monsters[0][0]) && (me[1] == monsters[0][1]) && (dungeon1[y][x] != 9)){  //랜덤으로 생성한 첫번째 몬스터와 x,y가 같다면
         system("clear");
         printf("앗! 몬스터랑 만나따!\n");
         
         int apper_num=rand()%3;
         battle_setting(apper_num);
         battle_start(apper_num);
-        
-        scanf("%d",&a);
+        monsters[0][0] = x;  // 몬스터 x 좌표 저장
+        monsters[0][1] = y;  // 몬스터 y 좌표 저장
+        dungeon1[y][x] = 0;
+        me[0] -= 1;
     }
     if ((me[0] == monsters[1][0]) && (me[1] == monsters[1][1])){  //랜덤으로 생성한 2번째 몬스터와 x,y가 같다면
         system("clear");
@@ -859,8 +862,11 @@ void dungeon_event() {  //던전
         int apper_num=rand()%3;
         battle_setting(apper_num);
         battle_start(apper_num);
+        monsters[1][0] = x;  // 몬스터 x 좌표 저장
+        monsters[1][1] = y;  // 몬스터 y 좌표 저장
+        dungeon1[y][x] = 0;
+        me[0] -= 1;
 
-        scanf("%d",&a);
     }
     if ((me[0] == monsters[2][0]) && (me[1] == monsters[2][1])){   //랜덤으로 생성한 3번째 몬스터와 x,y가 같다면
         system("clear");
@@ -868,7 +874,12 @@ void dungeon_event() {  //던전
         int apper_num=rand()%3;
         battle_setting(apper_num);
         battle_start(apper_num);
-        scanf("%d",&a);
+        monsters[2][0] = x;  // 몬스터 x 좌표 저장
+        monsters[2][1] = y;  // 몬스터 y 좌표 저장
+        dungeon1[y][x] = 0;
+        me[0] -= 1;
+
+ 
     }
     if ((me[0] == monsters[3][0]) && (me[1] == monsters[3][1])){   //랜덤으로 생성한 4번째 몬스터와 x,y가 같다면
         system("clear");
@@ -876,7 +887,12 @@ void dungeon_event() {  //던전
         int apper_num=rand()%3;
         battle_setting(apper_num);
         battle_start(apper_num);
-        scanf("%d",&a);
+        monsters[3][0] = x;  // 몬스터 x 좌표 저장
+        monsters[3][1] = y;  // 몬스터 y 좌표 저장
+        dungeon1[y][x] = 0;
+        me[0] -= 1;
+
+
     }
     if ((me[0] == monsters[4][0]) && (me[1] == monsters[4][1])){     //랜덤으로 생성한 5번째 몬스터와 x,y가 같다면
         system("clear");
@@ -884,7 +900,12 @@ void dungeon_event() {  //던전
         int apper_num=rand()%3;
         battle_setting(apper_num);
         battle_start(apper_num);
-        scanf("%d",&a);
+        monsters[4][0] = x;  // 몬스터 x 좌표 저장
+        monsters[4][1] = y;  // 몬스터 y 좌표 저장
+        dungeon1[y][x] = 0;
+        me[0] -= 1;
+
+
     }
 }
 
@@ -896,7 +917,10 @@ void dungeon2_event() {  //던전
       int apper_num=rand()%3;
       battle_setting(apper_num);
       battle_start(apper_num);
-      scanf("%d",&a);
+      monsters2[0][0] = x;  // 몬스터 x 좌표 저장
+      monsters2[0][1] = y;  // 몬스터 y 좌표 저장
+      dungeon2[y][x] = 0;
+      me[0] -= 1;
   }
   if ((me[0] == monsters2[1][0]) && (me[1] == monsters2[1][1])){  //랜덤으로 생성한 2번째 몬스터와 x,y가 같다면
       system("clear");
@@ -904,7 +928,10 @@ void dungeon2_event() {  //던전
       int apper_num=rand()%3;
       battle_setting(apper_num);
       battle_start(apper_num);
-      scanf("%d",&a);
+      monsters2[1][0] = x;  // 몬스터 x 좌표 저장
+      monsters2[1][1] = y;  // 몬스터 y 좌표 저장
+      dungeon2[y][x] = 0;
+      me[0] -= 1;
   }
   if ((me[0] == monsters2[2][0]) && (me[1] == monsters2[2][1])){   //랜덤으로 생성한 3번째 몬스터와 x,y가 같다면
       system("clear");
@@ -912,7 +939,10 @@ void dungeon2_event() {  //던전
       int apper_num=rand()%3;
       battle_setting(apper_num);
       battle_start(apper_num);
-      scanf("%d",&a);
+      monsters2[2][0] = x;  // 몬스터 x 좌표 저장
+      monsters2[2][1] = y;  // 몬스터 y 좌표 저장
+      dungeon2[y][x] = 0;
+      me[0] -= 1;
   }
   if ((me[0] == monsters2[3][0]) && (me[1] == monsters2[3][1])){   //랜덤으로 생성한 4번째 몬스터와 x,y가 같다면
       system("clear");
@@ -920,7 +950,10 @@ void dungeon2_event() {  //던전
       int apper_num=rand()%3;
       battle_setting(apper_num);
       battle_start(apper_num);
-      scanf("%d",&a);
+      monsters2[3][0] = x;  // 몬스터 x 좌표 저장
+      monsters2[3][1] = y;  // 몬스터 y 좌표 저장
+      dungeon2[y][x] = 0;
+      me[0] -= 1;
   }
   if ((me[0] == monsters2[4][0]) && (me[1] == monsters2[4][1])){     //랜덤으로 생성한 5번째 몬스터와 x,y가 같다면
       system("clear");
@@ -928,7 +961,10 @@ void dungeon2_event() {  //던전
       int apper_num=rand()%3;
       battle_setting(apper_num);
       battle_start(apper_num);
-      scanf("%d",&a);
+      monsters2[4][0] = x;  // 몬스터 x 좌표 저장
+      monsters2[4][1] = y;  // 몬스터 y 좌표 저장
+      dungeon2[y][x] = 0;
+      me[0] -= 1;
   }
 }
 
@@ -1458,70 +1494,70 @@ int show_status()       // "통합" 상태창 (상태창 인벤토리 아이템�
     return 0;
     
 }
-when_you_die()
-{
-    printf("██╗   ██╗ ██████╗ ██╗   ██╗    ██████╗ ██╗███████╗██╗\n");
-    printf("╚██╗ ██╔╝██╔═══██╗██║   ██║    ██╔══██╗██║██╔════╝██║\n");
-    printf(" ╚████╔╝ ██║   ██║██║   ██║    ██║  ██║██║█████╗  ██║\n");
-    printf("  ╚██╔╝  ██║   ██║██║   ██║    ██║  ██║██║██╔══╝  ╚═╝\n");
-    printf("   ██║   ╚██████╔╝╚██████╔╝    ██████╔╝██║███████╗██╗\n");
-    printf("   ╚═╝    ╚═════╝  ╚═════╝     ╚═════╝ ╚═╝╚══════╝╚═ \n");
+// when_you_die()
+// {
+//     printf("██╗   ██╗ ██████╗ ██╗   ██╗    ██████╗ ██╗███████╗██╗\n");
+//     printf("╚██╗ ██╔╝██╔═══██╗██║   ██║    ██╔══██╗██║██╔════╝██║\n");
+//     printf(" ╚████╔╝ ██║   ██║██║   ██║    ██║  ██║██║█████╗  ██║\n");
+//     printf("  ╚██╔╝  ██║   ██║██║   ██║    ██║  ██║██║██╔══╝  ╚═╝\n");
+//     printf("   ██║   ╚██████╔╝╚██████╔╝    ██████╔╝██║███████╗██╗\n");
+//     printf("   ╚═╝    ╚═════╝  ╚═════╝     ╚═════╝ ╚═╝╚══════╝╚═ \n");
 
-}
+// }
 
-when_you_level_up()
-    {
-        printf("██╗     ███████╗██╗   ██╗███████╗██╗         ██╗   ██╗██████╗ ██╗\n");
-        printf("██║     ██╔════╝██║   ██║██╔════╝██║         ██║   ██║██╔══██╗██║\n");
-        printf("██║     █████╗  ██║   ██║█████╗  ██║         ██║   ██║██████╔╝██║\n");
-        printf("██║     ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║         ██║   ██║██╔═══╝ ╚═╝\n");
-        printf("███████╗███████╗ ╚████╔╝ ███████╗███████╗    ╚██████╔╝██║     ██╗\n");
-        printf("╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚══════╝     ╚═════╝ ╚═╝     ╚═╝\n");
+// when_you_level_up()
+//     {
+//         printf("██╗     ███████╗██╗   ██╗███████╗██╗         ██╗   ██╗██████╗ ██╗\n");
+//         printf("██║     ██╔════╝██║   ██║██╔════╝██║         ██║   ██║██╔══██╗██║\n");
+//         printf("██║     █████╗  ██║   ██║█████╗  ██║         ██║   ██║██████╔╝██║\n");
+//         printf("██║     ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║         ██║   ██║██╔═══╝ ╚═╝\n");
+//         printf("███████╗███████╗ ╚████╔╝ ███████╗███████╗    ╚██████╔╝██║     ██╗\n");
+//         printf("╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚══════╝     ╚═════╝ ╚═╝     ╚═╝\n");
 
-        int user_select;
-        // 사용자 입력 유도 
-        printf("레벨업 하셨습니다 스텟 포인트 1을 선택하실수 있습니다. 1.힘 str +1 2.인트 int +1 3.덱스 dex +1");
-        scanf("%d", &user_select);
-        if(user_select == 1)
-        {
-            levelup_str_plus1();
-        }else if(user_select ==2)
-        {
-            levelup_int_plus1();
-        }else if(user_select ==3)
-        {
-            levelup_dex_plus1();
-        }
-    }
+//         int user_select;
+//         // 사용자 입력 유도 
+//         printf("레벨업 하셨습니다 스텟 포인트 1을 선택하실수 있습니다. 1.힘 str +1 2.인트 int +1 3.덱스 dex +1");
+//         scanf("%d", &user_select);
+//         if(user_select == 1)
+//         {
+//             levelup_str_plus1();
+//         }else if(user_select ==2)
+//         {
+//             levelup_int_plus1();
+//         }else if(user_select ==3)
+//         {
+//             levelup_dex_plus1();
+//         }
+//     }
 
 
 
 //str을 1올렸을때 
-void levelup_str_plus1()
-{
-    // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
-    yongbok_status.hp = yongbok_status.hp + 5;
-    yongbok_status.atk = yongbok_status.atk + 2 ;
-    // 올라간걸 확인하시오
-}
+// void levelup_str_plus1()
+// {
+//     // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
+//     yongbok_status.hp = yongbok_status.hp + 5;
+//     yongbok_status.atk = yongbok_status.atk + 2 ;
+//     // 올라간걸 확인하시오
+// }
 
-//int을 1올렸을때 
-void levelup_int_plus1()
-{
-    // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
-    yongbok_status.matk = yongbok_status.matk + 1;
-    yongbok_status.mp = yongbok_status.mp + 2 ;
-    // 올라간걸 확인하시오
+// //int을 1올렸을때 
+// void levelup_int_plus1()
+// {
+//     // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
+//     yongbok_status.matk = yongbok_status.matk + 1;
+//     yongbok_status.mp = yongbok_status.mp + 2 ;
+//     // 올라간걸 확인하시오
 
-}
-//int을 1올렸을때 
-void levelup_dex_plus1()
-{
-    // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
-    yongbok_status.ac = yongbok_status.ac + (yongbok_status.ac*0.002);
-    yongbok_status.cri = yongbok_status.cri + (yongbok_status.cri*0.005) ;
-    // 올라간걸 확인하시오
-}
+// }
+// //int을 1올렸을때 
+// void levelup_dex_plus1()
+// {
+//     // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
+//     yongbok_status.ac = yongbok_status.ac + (yongbok_status.ac*0.002);
+//     yongbok_status.cri = yongbok_status.cri + (yongbok_status.cri*0.005) ;
+//     // 올라간걸 확인하시오
+// }
 
 
 
@@ -1576,6 +1612,7 @@ int main()
                 scanf("%c", &input);  //키 입력을 받고
                 dungeon_move();  //움직이는 함수
                 dungeon_event();
+                dungeon_draw(); 
                 if((me[0] == 47)&&(me[1]) == 45){
                //던전에서 내 위치가 포털위치라면  (위치 부정확할 수 있음)
                 printf("[2층]\n");  //테스트 출력
