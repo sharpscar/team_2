@@ -4,6 +4,10 @@
 struct inven setting_shop(struct inven shop_inven);
 int main()
 {
+
+    //
+
+
     struct inven shop_inven;
     setting_shop(shop_inven);
 
