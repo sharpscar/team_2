@@ -45,46 +45,60 @@ int main()
         
     
             // 기본검
-           yongbok_status = set_status(yongbok_status,"용복이",1,100,20,10,0,2,5,10,10,10); 
+        yongbok_status = set_status(yongbok_status,"용복이",1,100,20,10,0,2,5,10,10,10); 
 
         //    levelup_str_plus1();
         yong_equip.sw = sword3_japanese;
 
-        //일본도를 들구있고 여러가지 방어구를 가지고 있을때 스텟치를 변화시킨다. 
-        struct amor amor2_iron;
-        amor2_iron=set_amor(amor2_iron,"철갑옷",1,-6,0,0,0,50,0,0,0,0);
-        struct amor amor2_iron_shoes;
-        amor2_iron_shoes= set_amor(amor2_iron_shoes,"철신발",1,-3,0,0,0,600,0,0,0,0);
-        struct amor amor2_iron_gloves;
-        amor2_iron_gloves= set_amor(amor2_iron_gloves,"철장갑",1,-3,0,0,0,600,0,0,0,0);
+        
 
-        struct amor amor2_cotton_cloack;
-        amor2_cotton_cloack= set_amor(amor2_cotton_cloack,"면망토",1,-3,0,0,0,600,0,0,0,0);
-          
-        struct amor amor2_iron_helmet;
-        amor2_iron_helmet= set_amor(amor2_iron_helmet,"철투구",1,-3,0,0,0,600,0,0,0,0);
+        //1레벨업 했습니다.
 
+        //
+
+    
 
 
 
 return 0;
 }
+when_you_level_up()
+    {
+        printf("██╗     ███████╗██╗   ██╗███████╗██╗         ██╗   ██╗██████╗ ██╗\n");
+        printf("██║     ██╔════╝██║   ██║██╔════╝██║         ██║   ██║██╔══██╗██║\n");
+        printf("██║     █████╗  ██║   ██║█████╗  ██║         ██║   ██║██████╔╝██║\n");
+        printf("██║     ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║         ██║   ██║██╔═══╝ ╚═╝\n");
+        printf("███████╗███████╗ ╚████╔╝ ███████╗███████╗    ╚██████╔╝██║     ██╗\n");
+        printf("╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚══════╝     ╚═════╝ ╚═╝     ╚═╝\n");
+
+        int user_select;
+        // 사용자 입력 유도 
+        printf("레벨업 하셨습니다 스텟 포인트 1을 선택하실수 있습니다. 1.힘 str +1 2.인트 int +1 3.덱스 dex +1");
+        scanf("%d", &user_select);
+        if(user_select == 1)
+        {
+            levelup_str_plus1();
+        }else if(user_select ==2)
+        {
+            levelup_int_plus1();
+        }else if(user_select ==3)
+        {
+            levelup_dex_plus1();
+        }
+    }
 
 //str을 1올렸을때 
 void levelup_str_plus1()
 {
-
     // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
     yongbok_status.hp = yongbok_status.hp + 5;
     yongbok_status.atk = yongbok_status.atk + 2 ;
     // 올라간걸 확인하시오
-
 }
 
 //int을 1올렸을때 
 void levelup_int_plus1()
 {
-
     // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
     yongbok_status.matk = yongbok_status.matk + 1;
     yongbok_status.mp = yongbok_status.mp + 2 ;
@@ -94,12 +108,10 @@ void levelup_int_plus1()
 //int을 1올렸을때 
 void levelup_dex_plus1()
 {
-
     // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
     yongbok_status.ac = yongbok_status.ac + (yongbok_status.ac*0.002);
     yongbok_status.cri = yongbok_status.cri + (yongbok_status.cri*0.005) ;
     // 올라간걸 확인하시오
-
 }
 
 

@@ -1425,6 +1425,61 @@ int show_status()       // "통합" 상태창 (상태창 인벤토리 아이템�
     
 }
 
+when_you_level_up()
+    {
+        printf("██╗     ███████╗██╗   ██╗███████╗██╗         ██╗   ██╗██████╗ ██╗\n");
+        printf("██║     ██╔════╝██║   ██║██╔════╝██║         ██║   ██║██╔══██╗██║\n");
+        printf("██║     █████╗  ██║   ██║█████╗  ██║         ██║   ██║██████╔╝██║\n");
+        printf("██║     ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║         ██║   ██║██╔═══╝ ╚═╝\n");
+        printf("███████╗███████╗ ╚████╔╝ ███████╗███████╗    ╚██████╔╝██║     ██╗\n");
+        printf("╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚══════╝     ╚═════╝ ╚═╝     ╚═╝\n");
+
+        int user_select;
+        // 사용자 입력 유도 
+        printf("레벨업 하셨습니다 스텟 포인트 1을 선택하실수 있습니다. 1.힘 str +1 2.인트 int +1 3.덱스 dex +1");
+        scanf("%d", &user_select);
+        if(user_select == 1)
+        {
+            levelup_str_plus1();
+        }else if(user_select ==2)
+        {
+            levelup_int_plus1();
+        }else if(user_select ==3)
+        {
+            levelup_dex_plus1();
+        }
+    }
+
+
+
+//str을 1올렸을때 
+void levelup_str_plus1()
+{
+    // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
+    yongbok_status.hp = yongbok_status.hp + 5;
+    yongbok_status.atk = yongbok_status.atk + 2 ;
+    // 올라간걸 확인하시오
+}
+
+//int을 1올렸을때 
+void levelup_int_plus1()
+{
+    // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
+    yongbok_status.matk = yongbok_status.matk + 1;
+    yongbok_status.mp = yongbok_status.mp + 2 ;
+    // 올라간걸 확인하시오
+
+}
+//int을 1올렸을때 
+void levelup_dex_plus1()
+{
+    // 2 해당 스테이터스 상태에서 hp를 5증가 시키시오
+    yongbok_status.ac = yongbok_status.ac + (yongbok_status.ac*0.002);
+    yongbok_status.cri = yongbok_status.cri + (yongbok_status.cri*0.005) ;
+    // 올라간걸 확인하시오
+}
+
+
 
 int main()
 {
