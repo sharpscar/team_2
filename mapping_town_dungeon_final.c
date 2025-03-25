@@ -3,6 +3,7 @@
 #include <time.h> //time 함수를 사용하기 위한 헤더파일
 #include <unistd.h>
 #include "./all_made_structed.c"
+#include "./battle33333.c"
 #define SIZE 50
 int me[2] = { 1,  1}; 
 char input = ' ';
@@ -845,26 +846,44 @@ void dungeon_event() {  //던전
     if ((me[0] == monsters[0][0]) && (me[1] == monsters[0][1])){  //랜덤으로 생성한 첫번째 몬스터와 x,y가 같다면
         system("clear");
         printf("앗! 몬스터랑 만나따!\n");
+        
+        int apper_num=rand()%3;
+        battle_setting(apper_num);
+        battle_start(apper_num);
+        
         scanf("%d",&a);
     }
     if ((me[0] == monsters[1][0]) && (me[1] == monsters[1][1])){  //랜덤으로 생성한 2번째 몬스터와 x,y가 같다면
         system("clear");
         printf("앗! 몬스터랑 만나따!\n");
+        int apper_num=rand()%3;
+        battle_setting(apper_num);
+        battle_start(apper_num);
+
         scanf("%d",&a);
     }
     if ((me[0] == monsters[2][0]) && (me[1] == monsters[2][1])){   //랜덤으로 생성한 3번째 몬스터와 x,y가 같다면
         system("clear");
         printf("앗! 몬스터랑 만나따!\n");
+        int apper_num=rand()%3;
+        battle_setting(apper_num);
+        battle_start(apper_num);
         scanf("%d",&a);
     }
     if ((me[0] == monsters[3][0]) && (me[1] == monsters[3][1])){   //랜덤으로 생성한 4번째 몬스터와 x,y가 같다면
         system("clear");
         printf("앗! 몬스터랑 만나따!\n");
+        int apper_num=rand()%3;
+        battle_setting(apper_num);
+        battle_start(apper_num);
         scanf("%d",&a);
     }
     if ((me[0] == monsters[4][0]) && (me[1] == monsters[4][1])){     //랜덤으로 생성한 5번째 몬스터와 x,y가 같다면
         system("clear");
         printf("앗! 몬스터랑 만나따!\n");
+        int apper_num=rand()%3;
+        battle_setting(apper_num);
+        battle_start(apper_num);
         scanf("%d",&a);
     }
 }
@@ -874,26 +893,41 @@ void dungeon2_event() {  //던전
   if ((me[0] == monsters2[0][0]) && (me[1] == monsters2[0][1])){  //랜덤으로 생성한 첫번째 몬스터와 x,y가 같다면
       system("clear");
       printf("앗! 몬스터랑 만나따!\n");
+      int apper_num=rand()%3;
+      battle_setting(apper_num);
+      battle_start(apper_num);
       scanf("%d",&a);
   }
   if ((me[0] == monsters2[1][0]) && (me[1] == monsters2[1][1])){  //랜덤으로 생성한 2번째 몬스터와 x,y가 같다면
       system("clear");
       printf("앗! 몬스터랑 만나따!\n");
+      int apper_num=rand()%3;
+      battle_setting(apper_num);
+      battle_start(apper_num);
       scanf("%d",&a);
   }
   if ((me[0] == monsters2[2][0]) && (me[1] == monsters2[2][1])){   //랜덤으로 생성한 3번째 몬스터와 x,y가 같다면
       system("clear");
       printf("앗! 몬스터랑 만나따!\n");
+      int apper_num=rand()%3;
+      battle_setting(apper_num);
+      battle_start(apper_num);
       scanf("%d",&a);
   }
   if ((me[0] == monsters2[3][0]) && (me[1] == monsters2[3][1])){   //랜덤으로 생성한 4번째 몬스터와 x,y가 같다면
       system("clear");
       printf("앗! 몬스터랑 만나따!\n");
+      int apper_num=rand()%3;
+      battle_setting(apper_num);
+      battle_start(apper_num);
       scanf("%d",&a);
   }
   if ((me[0] == monsters2[4][0]) && (me[1] == monsters2[4][1])){     //랜덤으로 생성한 5번째 몬스터와 x,y가 같다면
       system("clear");
       printf("앗! 몬스터랑 만나따!\n");
+      int apper_num=rand()%3;
+      battle_setting(apper_num);
+      battle_start(apper_num);
       scanf("%d",&a);
   }
 }
@@ -1493,6 +1527,11 @@ void levelup_dex_plus1()
 
 int main()
 {
+    srand(time(0));
+    // int apper_num=rand()%3;
+    // battle_setting(apper_num);
+    // battle_start(apper_num);
+
     // 용복이 스텟+ 인벤 초기화
     
     struct inven invens[4];    // 용복/잡화/보관/제련   0용복이 1잡화소 2보관소 3제련소
